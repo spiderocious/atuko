@@ -117,19 +117,19 @@ After commit, always ensure you come back to this file to check off completed ta
 
 ## Phase 7 — Popup UI Surface
 
-- [ ] Create `src/popup/main.tsx` — popup React root
-- [ ] Create `src/features/popup/screen/popup-screen.tsx` — popup shell
-- [ ] Create `src/features/popup/parts/active-runs-panel.tsx` — list of all running/paused workflows with step progress
-- [ ] Create `src/features/popup/parts/run-controls.tsx` — pause/resume/stop/restart per active workflow
-- [ ] Create `src/features/popup/parts/quick-override.tsx` — inject "wait N seconds" pause into current step
-- [ ] Create `src/features/popup/parts/prompt-area.tsx` — surfaces prompt UI (text/password/select with countdown) when workflow hits a prompt step
-- [ ] Create `src/features/popup/parts/recent-runs.tsx` — last 5 completed runs with status, name, timestamp
-- [ ] Create `src/features/popup/hooks/use-active-runs.ts` — subscribes to service worker status, returns all active runs
-- [ ] Create `src/features/popup/hooks/use-runtime-prompts.ts` — handles prompt request/response lifecycle
-- [ ] Implement select prompt countdown: timer display, auto-select on 0, "More time" reset, "Skip" to extend indefinitely
-- [ ] Add "Jump to side panel" button
-- [ ] Style: 360px wide, max 600px tall
-- [ ] **Commit and push using the ggg command only with message** — `feat: implement popup runtime dashboard with active runs, controls, and prompt UI`
+- [x] Create `src/popup/main.tsx` — popup React root
+- [x] Create `src/features/popup/screen/popup-screen.tsx` — popup shell
+- [x] Create `src/features/popup/parts/active-runs-panel.tsx` — list of all running/paused workflows with step progress
+- [x] Create `src/features/popup/parts/run-controls.tsx` — pause/resume/stop/restart per active workflow
+- [x] Create `src/features/popup/parts/quick-override.tsx` — inject "wait N seconds" pause into current step
+- [x] Create `src/features/popup/parts/prompt-area.tsx` — surfaces prompt UI (text/password/select with countdown) when workflow hits a prompt step
+- [x] Create `src/features/popup/parts/recent-runs.tsx` — last 5 completed runs with status, name, timestamp
+- [x] Create `src/features/popup/hooks/use-active-runs.ts` — subscribes to service worker status, returns all active runs
+- [x] Create `src/features/popup/hooks/use-runtime-prompts.ts` — handles prompt request/response lifecycle
+- [x] Implement select prompt countdown: timer display, auto-select on 0, "More time" reset, "Skip" to extend indefinitely
+- [x] Add "Jump to side panel" button
+- [x] Style: 360px wide, max 600px tall
+- [x] **Commit and push using the ggg command only with message** — `feat: implement popup runtime dashboard with active runs, controls, and prompt UI`
 
 ---
 
