@@ -27,20 +27,20 @@ After commit, always ensure you come back to this file to check off completed ta
 
 ## Phase 2 — Design System & Shared UI Components
 
-- [ ] Define all CSS custom properties in `src/index.css`: brand, neutral (light + dark), semantic, status indicator colors, spacing, radius, shadow, duration, easing tokens
-- [ ] Configure Tailwind to map CSS tokens so all token names are usable as Tailwind classes
-- [ ] Import Inter and JetBrains Mono fonts (via Google Fonts CDN or local bundling)
-- [ ] Build `ui/button.tsx` — primary, secondary, ghost variants; sm, md, lg sizes
-- [ ] Build `ui/input.tsx` — with label above, focus ring, error state
-- [ ] Build `ui/badge.tsx` — semantic color pairs, pill shape
-- [ ] Build `ui/status-dot.tsx` — 8px circle with idle/running/waiting/success/failed/dry-run states
-- [ ] Build `ui/card.tsx` — shadow-sm, radius-lg, standard padding variants
-- [ ] Build `ui/skeleton.tsx` — for loading states (never use spinners on data)
-- [ ] Build `ui/empty-state.tsx` — icon + headline + body + optional CTA anatomy
-- [ ] Build `ui/modal.tsx` — floating, radius-xl, shadow-lg, backdrop
-- [ ] Build `ui/dropdown.tsx` — shadow-md, radius-lg, keyboard navigable
-- [ ] Barrel export all from `ui/index.ts`
-- [ ] **Commit and push using the ggg command only with message** — `feat: implement design system tokens and shared UI component library`
+- [x] Define all CSS custom properties in `src/index.css`: brand, neutral (light + dark), semantic, status indicator colors, spacing, radius, shadow, duration, easing tokens
+- [x] Configure Tailwind to map CSS tokens so all token names are usable as Tailwind classes
+- [x] Import Inter and JetBrains Mono fonts (via Google Fonts CDN or local bundling)
+- [x] Build `ui/button.tsx` — primary, secondary, ghost variants; sm, md, lg sizes
+- [x] Build `ui/input.tsx` — with label above, focus ring, error state
+- [x] Build `ui/badge.tsx` — semantic color pairs, pill shape
+- [x] Build `ui/status-dot.tsx` — 8px circle with idle/running/waiting/success/failed/dry-run states
+- [x] Build `ui/card.tsx` — shadow-sm, radius-lg, standard padding variants
+- [x] Build `ui/skeleton.tsx` — for loading states (never use spinners on data)
+- [x] Build `ui/empty-state.tsx` — icon + headline + body + optional CTA anatomy
+- [x] Build `ui/modal.tsx` — floating, radius-xl, shadow-lg, backdrop
+- [x] Build `ui/dropdown.tsx` — shadow-md, radius-lg, keyboard navigable
+- [x] Barrel export all from `ui/index.ts`
+- [x] **Commit and push using the ggg command only with message** — `feat: implement design system tokens and shared UI component library`
 
 ---
 
