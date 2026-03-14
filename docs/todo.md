@@ -74,27 +74,27 @@ After commit, always ensure you come back to this file to check off completed ta
 
 ## Phase 5 — Content Script (Step Executor)
 
-- [ ] Set up `src/content-script.ts` message listener — receives steps from service worker
-- [ ] Create `src/executor/selector-resolver.ts` — resolves primary selector, fallback chain, `@alias` resolution from site config; returns resolved element + stability score
-- [ ] Create `src/executor/steps/click.ts` — click with button/doubleClick/waitBefore/scrollIntoView/force options
-- [ ] Create `src/executor/steps/fill.ts` — fill with clearMethod/append/simulateTyping/typingDelay/pressEnter, supports `{{variable}}` and multi-value
-- [ ] Create `src/executor/steps/wait.ts` — wait by duration/element/element-gone/text/network with timeout + onTimeout
-- [ ] Create `src/executor/steps/scroll.ts` — scroll page or element by to/by/element/top/bottom with smooth/instant behaviour
-- [ ] Create `src/executor/steps/navigate.ts` — navigate with waitUntil and timeout
-- [ ] Create `src/executor/steps/submit.ts` — form submit with waitForNavigation
-- [ ] Create `src/executor/steps/select.ts` — select by value/label/index
-- [ ] Create `src/executor/steps/hover.ts` — hover with duration
-- [ ] Create `src/executor/steps/keypress.ts` — keyboard events with modifier combos, repeat, delay
-- [ ] Create `src/executor/steps/extract.ts` — extract text/html/value/attribute/style, save to variable with transform
-- [ ] Create `src/executor/steps/screenshot.ts` — capture viewport/page/element, save as data URI, optional saveAs variable
-- [ ] Create `src/executor/steps/tab.ts` — open/close/switch/close-others with switchTo/urlPattern/tabIndex/waitUntil/saveTabId
-- [ ] Create `src/executor/steps/clipboard.ts` — read/write clipboard
-- [ ] Create `src/executor/steps/storage-step.ts` — get/set/remove/clear localStorage or sessionStorage
-- [ ] Create `src/executor/steps/log.ts` — write to run log with info/warn/error level
-- [ ] Create `src/executor/steps/prompt.ts` — pause execution, send PROMPT_REQUEST to popup, wait for PROMPT_RESPONSE
-- [ ] Create `src/executor/steps/set-variable.ts` — set variable with scope and transform
-- [ ] Create `src/executor/toast-bridge.ts` — injects/updates/removes toast React root in shadow DOM
-- [ ] **Commit and push using the ggg command only with message** — `feat: implement content script with all 18 step type executors and selector resolver`
+- [x] Set up `src/content-script.ts` message listener — receives steps from service worker
+- [x] Create `src/executor/selector-resolver.ts` — resolves primary selector, fallback chain, `@alias` resolution from site config; returns resolved element + stability score
+- [x] Create `src/executor/steps/click.ts` — click with button/doubleClick/waitBefore/scrollIntoView/force options
+- [x] Create `src/executor/steps/fill.ts` — fill with clearMethod/append/simulateTyping/typingDelay/pressEnter, supports `{{variable}}` and multi-value
+- [x] Create `src/executor/steps/wait.ts` — wait by duration/element/element-gone/text/network with timeout + onTimeout
+- [x] Create `src/executor/steps/scroll.ts` — scroll page or element by to/by/element/top/bottom with smooth/instant behaviour
+- [x] Create `src/executor/steps/navigate.ts` — navigate with waitUntil and timeout
+- [x] Create `src/executor/steps/submit.ts` — form submit with waitForNavigation
+- [x] Create `src/executor/steps/select.ts` — select by value/label/index
+- [x] Create `src/executor/steps/hover.ts` — hover with duration
+- [x] Create `src/executor/steps/keypress.ts` — keyboard events with modifier combos, repeat, delay
+- [x] Create `src/executor/steps/extract.ts` — extract text/html/value/attribute/style, save to variable with transform
+- [x] Create `src/executor/steps/screenshot.ts` — capture viewport/page/element, save as data URI, optional saveAs variable
+- [x] Create `src/executor/steps/tab.ts` — open/close/switch/close-others with switchTo/urlPattern/tabIndex/waitUntil/saveTabId
+- [x] Create `src/executor/steps/clipboard.ts` — read/write clipboard
+- [x] Create `src/executor/steps/storage-step.ts` — get/set/remove/clear localStorage or sessionStorage
+- [x] Create `src/executor/steps/log.ts` — write to run log with info/warn/error level
+- [x] Create `src/executor/steps/prompt.ts` — pause execution, send PROMPT_REQUEST to popup, wait for PROMPT_RESPONSE
+- [x] Create `src/executor/steps/set-variable.ts` — set variable with scope and transform
+- [x] Create `src/executor/toast-bridge.ts` — injects/updates/removes toast React root in shadow DOM
+- [x] **Commit and push using the ggg command only with message** — `feat: implement content script with all 18 step type executors and selector resolver`
 
 ---
 

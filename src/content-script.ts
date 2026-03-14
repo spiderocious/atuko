@@ -5,8 +5,9 @@
  */
 
 import { MSG } from '@shared/constants/messages'
-import { StepObject, SiteConfig } from '@shared/types'
+import { StepObject, SiteConfig, ActiveRunState } from '@shared/types'
 import { StepResult } from '@shared/types'
+import { injectToast, removeToast } from './executor/toast-bridge'
 import { executeClick } from './executor/steps/click'
 import { executeFill } from './executor/steps/fill'
 import { executeWait } from './executor/steps/wait'
@@ -36,13 +37,24 @@ chrome.runtime.sendMessage(
 )
 
 chrome.runtime.onMessage.addListener((message, _sender, sendResponse) => {
-  const msg = message as { type: string; step?: StepObject; isDryRun?: boolean; runId?: string }
+  const msg = message as { type: string; step?: StepObject; isDryRun?: boolean; runId?: string; payload?: ActiveRunState }
 
   if (msg.type === MSG.EXECUTE_STEP && msg.step) {
     handleExecuteStep(msg.step, msg.isDryRun ?? false, msg.runId ?? '')
       .then(sendResponse)
       .catch((e) => sendResponse({ stepId: msg.step!.id, success: false, error: String(e) }))
     return true
+  }
+
+  if (msg.type === MSG.RUN_STATUS_UPDATE && msg.payload) {
+    const payload = msg.payload
+    if (payload.status === 'running') {
+      injectToast(payload)
+    } else if (payload.status === 'success' || payload.status === 'failed') {
+      setTimeout(() => removeToast(), 2000)
+    }
+    sendResponse({ ok: true })
+    return
   }
 
   sendResponse({ ok: false, error: `Unknown CS message: ${msg.type}` })
