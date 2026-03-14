@@ -100,18 +100,18 @@ After commit, always ensure you come back to this file to check off completed ta
 
 ## Phase 6 — Toast UI Surface
 
-- [ ] Create `src/toast/main.tsx` — React root mounted inside shadow DOM injected by content script
-- [ ] Create `src/features/toast/screen/toast-screen.tsx` — main component, receives run status via message port
-- [ ] Create `src/features/toast/parts/step-label.tsx` — current step label updating in real time
-- [ ] Create `src/features/toast/parts/step-counter.tsx` — "Step 3 of 8" progress display
-- [ ] Create `src/features/toast/parts/status-dot.tsx` — 8px colour-coded status indicator with transitions
-- [ ] Create `src/features/toast/parts/control-buttons.tsx` — pause, stop, expand, dismiss ghost buttons (sm size)
-- [ ] Create `src/features/toast/parts/step-log-expander.tsx` — last 5 step logs shown on expand
-- [ ] Create `src/features/toast/hooks/use-run-status.ts` — subscribes to service worker status broadcasts
-- [ ] Implement toast animation: slide up + fade in (200ms ease-spring), slide down + fade out (150ms ease-in)
-- [ ] Style: 300px wide, bottom-right 16px, radius-2xl, shadow-lg, backdrop blur
-- [ ] Verify shadow DOM isolation (toast styles do not bleed into host page and vice versa)
-- [ ] **Commit and push using the ggg command only with message** — `feat: implement runtime toast UI with shadow DOM isolation and spring animations`
+- [x] Create `src/toast/main.tsx` — React root mounted inside shadow DOM injected by content script
+- [x] Create `src/features/toast/screen/toast-screen.tsx` — main component, receives run status via message port
+- [x] Create `src/features/toast/parts/step-label.tsx` — current step label updating in real time
+- [x] Create `src/features/toast/parts/step-counter.tsx` — "Step 3 of 8" progress display
+- [x] Create `src/features/toast/parts/status-dot.tsx` — 8px colour-coded status indicator with transitions
+- [x] Create `src/features/toast/parts/control-buttons.tsx` — pause, stop, expand, dismiss ghost buttons (sm size)
+- [x] Create `src/features/toast/parts/step-log-expander.tsx` — last 5 step logs shown on expand
+- [x] Create `src/features/toast/hooks/use-run-status.ts` — subscribes to service worker status broadcasts
+- [x] Implement toast animation: slide up + fade in (200ms ease-spring), slide down + fade out (150ms ease-in)
+- [x] Style: 300px wide, bottom-right 16px, radius-2xl, shadow-lg, backdrop blur
+- [x] Verify shadow DOM isolation (toast styles do not bleed into host page and vice versa)
+- [x] **Commit and push using the ggg command only with message** — `feat: implement runtime toast UI with shadow DOM isolation and spring animations`
 
 ---
 
