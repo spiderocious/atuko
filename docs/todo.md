@@ -8,20 +8,20 @@ After commit, always ensure you come back to this file to check off completed ta
 
 ## Phase 1 — Project Scaffold & Extension Setup
 
-- [ ] Initialise project with Vite + React + TypeScript
-- [ ] Install and configure `@crxjs/vite-plugin` for Chrome extension support
-- [ ] Write `manifest.json` (MV3) with all required permissions: tabs, activeTab, scripting, storage, sidePanel, notifications, clipboardRead, clipboardWrite, webRequest, host_permissions: `<all_urls>`
-- [ ] Configure Vite multi-entry: popup, side-panel, options (HTML), service-worker, content-script (JS)
-- [ ] Configure TypeScript strict mode and path aliases (`@app`, `@features`, `@shared`, `@ui`)
-- [ ] Set up `tsconfig.json` and `tsconfig.app.json`
-- [ ] Install Tailwind CSS v4 and configure `tailwind.config.ts`
-- [ ] Install core dependencies: React 18, TanStack Query, Lucide React, MeemawJS
-- [ ] Create `src/` folder structure following FSD: `features/`, `shared/`, `ui/`
-- [ ] Create `shared/constants/feature-flags.ts` with all feature flags (all default `true`)
-- [ ] Create `shared/ui/icons/index.ts` as Lucide proxy barrel export
-- [ ] Create placeholder entry files for all surfaces (popup, side-panel, options, service-worker, content-script) so extension loads unpacked without errors
+- [x] Initialise project with Vite + React + TypeScript
+- [x] Install and configure `@crxjs/vite-plugin` for Chrome extension support
+- [x] Write `manifest.json` (MV3) with all required permissions: tabs, activeTab, scripting, storage, sidePanel, notifications, clipboardRead, clipboardWrite, webRequest, host_permissions: `<all_urls>`
+- [x] Configure Vite multi-entry: popup, side-panel, options (HTML), service-worker, content-script (JS)
+- [x] Configure TypeScript strict mode and path aliases (`@app`, `@features`, `@shared`, `@ui`)
+- [x] Set up `tsconfig.json` and `tsconfig.app.json`
+- [x] Install Tailwind CSS v4 and configure `tailwind.config.ts`
+- [x] Install core dependencies: React 18, TanStack Query, Lucide React, MeemawJS
+- [x] Create `src/` folder structure following FSD: `features/`, `shared/`, `ui/`
+- [x] Create `shared/constants/feature-flags.ts` with all feature flags (all default `true`)
+- [x] Create `shared/ui/icons/index.ts` as Lucide proxy barrel export
+- [x] Create placeholder entry files for all surfaces (popup, side-panel, options, service-worker, content-script) so extension loads unpacked without errors
 - [ ] Verify extension loads in Chrome via `chrome://extensions` → Load unpacked → `dist/`
-- [ ] **Commit and push using the ggg command only with message** — `feat: scaffold Chrome MV3 extension with Vite, React, and TypeScript`
+- [x] **Commit and push using the ggg command only with message** — `feat: scaffold Chrome MV3 extension with Vite, React, and TypeScript`
 
 ---
 
