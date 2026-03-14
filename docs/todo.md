@@ -60,15 +60,15 @@ After commit, always ensure you come back to this file to check off completed ta
 
 ## Phase 4 — Runtime Engine (Service Worker)
 
-- [ ] Set up `src/service-worker.ts` message router — handles all `chrome.runtime.onMessage` events
-- [ ] Create `src/runtime/variable-resolver.ts` — resolves `{{variable}}` interpolation, built-in variables (`$url`, `$timestamp`, `$runId`, `$stepIndex`, `$iteration`, `$item`, etc.)
-- [ ] Create `src/runtime/condition-evaluator.ts` — evaluates all condition types: `element-exists`, `element-missing`, `element-text`, `element-value`, `url-matches`, `variable`, `response-contains` with all operators
-- [ ] Create `src/runtime/step-executor.ts` — sends step to content script via `chrome.tabs.sendMessage`, handles timeout and retry logic
-- [ ] Create `src/runtime/workflow-runner.ts` — main orchestration loop: load workflow, iterate steps, handle branch/loop/stop/jump, evaluate conditions, handle `onError` (stop/skip/branch/retry)
-- [ ] Create `src/runtime/run-recorder.ts` — writes RunRecord to storage on completion or failure, fires system notification
-- [ ] Implement message handlers in service worker: `TRIGGER_WORKFLOW`, `STEP_RESULT`, `PAUSE_RUN`, `RESUME_RUN`, `STOP_RUN`, `GET_RUN_STATUS`, `PROMPT_RESPONSE`, `SAVE_WORKFLOW`, `GET_WORKFLOWS`, `DELETE_WORKFLOW`, `GET_RUN_HISTORY`
-- [ ] Implement status broadcast to popup and toast on each step change
-- [ ] **Commit and push using the ggg command only with message** — `feat: implement service worker runtime engine with full workflow orchestration`
+- [x] Set up `src/service-worker.ts` message router — handles all `chrome.runtime.onMessage` events
+- [x] Create `src/runtime/variable-resolver.ts` — resolves `{{variable}}` interpolation, built-in variables (`$url`, `$timestamp`, `$runId`, `$stepIndex`, `$iteration`, `$item`, etc.)
+- [x] Create `src/runtime/condition-evaluator.ts` — evaluates all condition types: `element-exists`, `element-missing`, `element-text`, `element-value`, `url-matches`, `variable`, `response-contains` with all operators
+- [x] Create `src/runtime/step-executor.ts` — sends step to content script via `chrome.tabs.sendMessage`, handles timeout and retry logic
+- [x] Create `src/runtime/workflow-runner.ts` — main orchestration loop: load workflow, iterate steps, handle branch/loop/stop/jump, evaluate conditions, handle `onError` (stop/skip/branch/retry)
+- [x] Create `src/runtime/run-recorder.ts` — writes RunRecord to storage on completion or failure, fires system notification
+- [x] Implement message handlers in service worker: `TRIGGER_WORKFLOW`, `STEP_RESULT`, `PAUSE_RUN`, `RESUME_RUN`, `STOP_RUN`, `GET_RUN_STATUS`, `PROMPT_RESPONSE`, `SAVE_WORKFLOW`, `GET_WORKFLOWS`, `DELETE_WORKFLOW`, `GET_RUN_HISTORY`
+- [x] Implement status broadcast to popup and toast on each step change
+- [x] **Commit and push using the ggg command only with message** — `feat: implement service worker runtime engine with full workflow orchestration`
 
 ---
 
