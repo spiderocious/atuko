@@ -1,0 +1,147 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
+@import 'tailwindcss';
+
+/* ─── Brand ─────────────────────────────────────────────────────────── */
+:root {
+  --color-brand:       #7C5CFC;
+  --color-brand-light: #9B80FD;
+  --color-brand-dim:   #EDE9FF;
+  --color-brand-dark:  #5B3FD4;
+
+  /* ─── Neutral (Light Mode) ───────────────────────────────────────── */
+  --color-bg:                #FAFAFA;
+  --color-surface:           #FFFFFF;
+  --color-surface-raised:    #F4F4F5;
+  --color-surface-overlay:   #EFEFEF;
+  --color-border:            #E4E4E7;
+  --color-border-strong:     #D1D1D6;
+  --color-text-primary:      #18181B;
+  --color-text-secondary:    #52525B;
+  --color-text-tertiary:     #A1A1AA;
+  --color-text-inverse:      #FFFFFF;
+
+  /* ─── Semantic ───────────────────────────────────────────────────── */
+  --color-success:           #16A34A;
+  --color-success-bg:        #F0FDF4;
+  --color-warning:           #D97706;
+  --color-warning-bg:        #FFFBEB;
+  --color-error:             #DC2626;
+  --color-error-bg:          #FEF2F2;
+  --color-info:              #2563EB;
+  --color-info-bg:           #EFF6FF;
+
+  /* ─── Status Indicators ──────────────────────────────────────────── */
+  --color-status-idle:       #A1A1AA;
+  --color-status-running:    #7C5CFC;
+  --color-status-waiting:    #F59E0B;
+  --color-status-success:    #22C55E;
+  --color-status-failed:     #EF4444;
+  --color-status-dry-run:    #06B6D4;
+
+  /* ─── Spacing (4px grid) ─────────────────────────────────────────── */
+  --space-1:  4px;
+  --space-2:  8px;
+  --space-3:  12px;
+  --space-4:  16px;
+  --space-5:  20px;
+  --space-6:  24px;
+  --space-8:  32px;
+  --space-10: 40px;
+  --space-12: 48px;
+
+  /* ─── Border Radius ──────────────────────────────────────────────── */
+  --radius-sm:   4px;
+  --radius-md:   6px;
+  --radius-lg:   8px;
+  --radius-xl:   12px;
+  --radius-2xl:  16px;
+  --radius-full: 9999px;
+
+  /* ─── Elevation ──────────────────────────────────────────────────── */
+  --shadow-sm: 0 1px 2px rgba(0,0,0,0.06), 0 1px 3px rgba(0,0,0,0.04);
+  --shadow-md: 0 4px 6px rgba(0,0,0,0.07), 0 2px 4px rgba(0,0,0,0.05);
+  --shadow-lg: 0 10px 25px rgba(0,0,0,0.10), 0 4px 10px rgba(0,0,0,0.06);
+
+  /* ─── Typography ─────────────────────────────────────────────────── */
+  --text-xs:   11px;
+  --text-sm:   13px;
+  --text-base: 14px;
+  --text-md:   15px;
+  --text-lg:   17px;
+  --text-xl:   20px;
+  --text-2xl:  24px;
+  --text-3xl:  30px;
+
+  /* ─── Motion ─────────────────────────────────────────────────────── */
+  --duration-fast:     100ms;
+  --duration-base:     150ms;
+  --duration-moderate: 200ms;
+  --duration-slow:     300ms;
+
+  --ease-out:    cubic-bezier(0.0, 0.0, 0.2, 1);
+  --ease-in-out: cubic-bezier(0.4, 0.0, 0.2, 1);
+  --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+/* ─── Dark Mode ──────────────────────────────────────────────────────── */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --color-bg:              #111113;
+    --color-surface:         #1C1C1F;
+    --color-surface-raised:  #28282C;
+    --color-surface-overlay: #323236;
+    --color-border:          #2E2E32;
+    --color-border-strong:   #3F3F46;
+    --color-text-primary:    #FAFAFA;
+    --color-text-secondary:  #A1A1AA;
+    --color-text-tertiary:   #52525B;
+    --color-text-inverse:    #18181B;
+
+    --color-success:         #22C55E;
+    --color-success-bg:      #052E16;
+    --color-warning:         #F59E0B;
+    --color-warning-bg:      #1C1400;
+    --color-error:           #EF4444;
+    --color-error-bg:        #1C0505;
+    --color-info:            #60A5FA;
+    --color-info-bg:         #0A1628;
+
+    --shadow-sm: 0 1px 2px rgba(0,0,0,0.24), 0 1px 3px rgba(0,0,0,0.16);
+    --shadow-md: 0 4px 6px rgba(0,0,0,0.3),  0 2px 4px rgba(0,0,0,0.2);
+    --shadow-lg: 0 10px 25px rgba(0,0,0,0.4), 0 4px 10px rgba(0,0,0,0.24);
+  }
+}
+
+/* ─── Reduced Motion ─────────────────────────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* ─── Base Styles ────────────────────────────────────────────────────── */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html,
+body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  font-size: var(--text-base);
+  line-height: 22px;
+  color: var(--color-text-primary);
+  background-color: var(--color-bg);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+code,
+pre,
+.font-mono {
+  font-family: 'JetBrains Mono', 'Fira Code', 'Cascadia Code', monospace;
+}
