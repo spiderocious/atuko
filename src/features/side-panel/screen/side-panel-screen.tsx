@@ -1,6 +1,8 @@
 import { useState } from 'react'
 import { Workflow } from '@shared/types'
 import { WorkflowsListScreen } from '../features/workflows-list/screen/workflows-list-screen'
+import { BuilderScreen } from '../features/builder/screen/builder-screen'
+import { useSaveWorkflow } from '../features/workflows-list/hooks/use-workflows'
 
 type Tab = 'workflows' | 'builder' | 'config' | 'history' | 'site-config' | 'settings'
 
@@ -15,7 +17,26 @@ const TABS: { id: Tab; label: string }[] = [
 
 export function SidePanelScreen() {
   const [activeTab, setActiveTab] = useState<Tab>('workflows')
-  const [_editingWorkflow, setEditingWorkflow] = useState<Workflow | null>(null)
+  const [editingWorkflow, setEditingWorkflow] = useState<Workflow | null>(null)
+  const saveWorkflow = useSaveWorkflow()
+
+  const handleEdit = (w: Workflow) => {
+    setEditingWorkflow(w)
+    setActiveTab('builder')
+  }
+
+  const handleSave = (w: Workflow) => {
+    saveWorkflow.mutate(w, {
+      onSuccess: () => {
+        setEditingWorkflow(w)
+      },
+    })
+  }
+
+  const handleBack = () => {
+    setActiveTab('workflows')
+    setEditingWorkflow(null)
+  }
 
   return (
     <div className="flex flex-col h-screen bg-[var(--color-surface)] text-[var(--color-text-primary)]">
@@ -40,9 +61,21 @@ export function SidePanelScreen() {
       {/* Content */}
       <div className="flex-1 overflow-hidden">
         {activeTab === 'workflows' && (
-          <WorkflowsListScreen onEdit={(w) => { setEditingWorkflow(w); setActiveTab('builder') }} />
+          <WorkflowsListScreen onEdit={handleEdit} />
         )}
-        {activeTab !== 'workflows' && (
+        {activeTab === 'builder' && editingWorkflow && (
+          <BuilderScreen
+            workflow={editingWorkflow}
+            onSave={handleSave}
+            onBack={handleBack}
+          />
+        )}
+        {activeTab === 'builder' && !editingWorkflow && (
+          <div className="flex items-center justify-center h-full text-sm text-[var(--color-text-secondary)]">
+            Select a workflow to edit, or create a new one.
+          </div>
+        )}
+        {activeTab !== 'workflows' && activeTab !== 'builder' && (
           <div className="flex items-center justify-center h-full text-sm text-[var(--color-text-secondary)]">
             {TABS.find(t => t.id === activeTab)?.label} — coming in next phase
           </div>

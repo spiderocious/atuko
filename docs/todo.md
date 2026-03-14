@@ -135,20 +135,20 @@ After commit, always ensure you come back to this file to check off completed ta
 
 ## Phase 8 — Side Panel: Workflows List Tab
 
-- [ ] Create `src/side-panel/main.tsx` — side panel React root with tab navigation
-- [ ] Create `src/features/side-panel/screen/side-panel-screen.tsx` — tab host (Workflows, Builder, Config, History, Site Config, Settings)
-- [ ] Create `src/features/side-panel/features/workflows-list/screen/workflows-list-screen.tsx`
-- [ ] Create `src/features/side-panel/features/workflows-list/parts/workflow-item.tsx` — name, site, last run status badge, enable toggle, run/edit/duplicate/delete actions
-- [ ] Create `src/features/side-panel/features/workflows-list/parts/workflow-search.tsx` — search input with live filter
-- [ ] Create `src/features/side-panel/features/workflows-list/parts/workflow-filters.tsx` — filter by site, tag, status (enabled/disabled/last failed)
-- [ ] Create `src/features/side-panel/features/workflows-list/hooks/use-workflows.ts` — TanStack Query wrapper over storage service
-- [ ] Implement duplicate workflow action (copies with new ID)
-- [ ] Implement export as JSON file download
-- [ ] Implement import from JSON file (schema validation before save)
-- [ ] Implement enable/disable toggle (auto-triggers off, manual always available)
-- [ ] Implement tags — assign and filter by freeform tags
-- [ ] Implement empty state: "No workflows yet — record one to get started" with CTA
-- [ ] **Commit and push using the ggg command only with message** — `feat: implement workflows list tab with full management actions (enable, duplicate, export, import, tags)`
+- [x] Create `src/side-panel/main.tsx` — side panel React root with tab navigation
+- [x] Create `src/features/side-panel/screen/side-panel-screen.tsx` — tab host (Workflows, Builder, Config, History, Site Config, Settings)
+- [x] Create `src/features/side-panel/features/workflows-list/screen/workflows-list-screen.tsx`
+- [x] Create `src/features/side-panel/features/workflows-list/parts/workflow-item.tsx` — name, site, last run status badge, enable toggle, run/edit/duplicate/delete actions
+- [x] Create `src/features/side-panel/features/workflows-list/parts/workflow-search.tsx` — search input with live filter
+- [x] Create `src/features/side-panel/features/workflows-list/parts/workflow-filters.tsx` — filter by site, tag, status (enabled/disabled/last failed)
+- [x] Create `src/features/side-panel/features/workflows-list/hooks/use-workflows.ts` — TanStack Query wrapper over storage service
+- [x] Implement duplicate workflow action (copies with new ID)
+- [x] Implement export as JSON file download
+- [x] Implement import from JSON file (schema validation before save)
+- [x] Implement enable/disable toggle (auto-triggers off, manual always available)
+- [x] Implement tags — assign and filter by freeform tags
+- [x] Implement empty state: "No workflows yet — record one to get started" with CTA
+- [x] **Commit and push using the ggg command only with message** — `feat: implement workflows list tab with full management actions (enable, duplicate, export, import, tags)`
 
 ---
 
