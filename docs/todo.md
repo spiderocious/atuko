@@ -46,15 +46,15 @@ After commit, always ensure you come back to this file to check off completed ta
 
 ## Phase 3 — Type System & Storage Layer
 
-- [ ] Create `shared/types/workflow.types.ts` — full Workflow JSON schema types: Workflow, StepObject, SelectorObject, TriggerObject, ConditionObject, LoopObject, BranchObject
-- [ ] Create `shared/types/step-types.ts` — typed options interface per step type (ClickOptions, FillOptions, WaitOptions, etc.)
-- [ ] Create `shared/types/run.types.ts` — RunRecord, StepResult, RunStatus
-- [ ] Create `shared/types/site-config.types.ts` — SiteConfig, InterceptRule, SelectorAlias
-- [ ] Create `shared/types/variable.types.ts` — VariableScope enum, VariableStore
-- [ ] Create `shared/constants/storage-keys.ts` — all chrome.storage key strings as constants
-- [ ] Create `shared/services/storage.service.ts` — typed CRUD wrapper over `chrome.storage.local` and `chrome.storage.sync` for: workflows, site configs, global variables, run history, screenshots, settings
-- [ ] Add screenshot purge logic in storage service (remove entries older than 7 days)
-- [ ] **Commit and push using the ggg command only with message** — `feat: define full type system and typed storage layer`
+- [x] Create `shared/types/workflow.types.ts` — full Workflow JSON schema types: Workflow, StepObject, SelectorObject, TriggerObject, ConditionObject, LoopObject, BranchObject
+- [x] Create `shared/types/step-types.ts` — typed options interface per step type (ClickOptions, FillOptions, WaitOptions, etc.)
+- [x] Create `shared/types/run.types.ts` — RunRecord, StepResult, RunStatus
+- [x] Create `shared/types/site-config.types.ts` — SiteConfig, InterceptRule, SelectorAlias
+- [x] Create `shared/types/variable.types.ts` — VariableScope enum, VariableStore
+- [x] Create `shared/constants/storage-keys.ts` — all chrome.storage key strings as constants
+- [x] Create `shared/services/storage.service.ts` — typed CRUD wrapper over `chrome.storage.local` and `chrome.storage.sync` for: workflows, site configs, global variables, run history, screenshots, settings
+- [x] Add screenshot purge logic in storage service (remove entries older than 7 days)
+- [x] **Commit and push using the ggg command only with message** — `feat: define full type system and typed storage layer`
 
 ---
 
