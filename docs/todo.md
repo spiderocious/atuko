@@ -191,15 +191,15 @@ After commit, always ensure you come back to this file to check off completed ta
 
 ## Phase 11 — Record Mode
 
-- [ ] Create `src/recorder/action-capture.ts` — DOM event listeners for click, input change, form submit, navigation
-- [ ] Create `src/recorder/selector-generator.ts` — generates primary CSS/XPath selector + fallback list from clicked element
-- [ ] Create `src/recorder/stability-scorer.ts` — scores each selector: data-testid/aria/id → 0.9+, text/role → 0.8+, class → 0.6+, positional → 0.3
-- [ ] Create `src/recorder/recorder.ts` — main recorder that wires up capture, generates step objects, sends to service worker for appending to workflow
-- [ ] Wire record start/stop to content script toggle
-- [ ] Wire record-toolbar buttons in builder to send START_RECORD / STOP_RECORD messages
-- [ ] Display stability score on each captured step in builder
-- [ ] Flag steps with stability < 0.5 with a warning icon in the node
-- [ ] **Commit and push using the ggg command only with message** — `feat: implement record mode with smart selector generation and stability scoring`
+- [x] Create `src/recorder/action-capture.ts` — DOM event listeners for click, input change, form submit, navigation
+- [x] Create `src/recorder/selector-generator.ts` — generates primary CSS/XPath selector + fallback list from clicked element
+- [x] Create `src/recorder/stability-scorer.ts` — scores each selector: data-testid/aria/id → 0.9+, text/role → 0.8+, class → 0.6+, positional → 0.3
+- [x] Create `src/recorder/recorder.ts` — main recorder that wires up capture, generates step objects, sends to service worker for appending to workflow
+- [x] Wire record start/stop to content script toggle
+- [x] Wire record-toolbar buttons in builder to send START_RECORD / STOP_RECORD messages
+- [x] Display stability score on each captured step in builder
+- [x] Flag steps with stability < 0.5 with a warning icon in the node
+- [x] **Commit and push using the ggg command only with message** — `feat: implement record mode with smart selector generation and stability scoring`
 
 ---
 
