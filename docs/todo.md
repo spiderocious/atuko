@@ -205,15 +205,15 @@ After commit, always ensure you come back to this file to check off completed ta
 
 ## Phase 12 — Network Interception
 
-- [ ] Create `src/runtime/network-interceptor.ts` — registers/removes intercept rules keyed to active site config
-- [ ] Create `src/executor/page-fetch-proxy.ts` — injected into page context via `scripting.executeScript`, intercepts `window.fetch` and `XMLHttpRequest` before network
-- [ ] Implement read-only capture — intercept response, capture body/status/headers, save to run variable or global store
-- [ ] Implement full response override — return replacement body + headers, never send original request
-- [ ] Implement header-only override — pass original body through, modify status + content-type
-- [ ] Implement conditional override — evaluate condition before deciding to override
-- [ ] Log all intercepted requests to run output: timestamp, URL, method, status, body size
-- [ ] Wire intercept rules from site config to runtime on workflow start
-- [ ] **Commit and push using the ggg command only with message** — `feat: implement network interception with read capture and full response override`
+- [x] Create `src/runtime/network-interceptor.ts` — registers/removes intercept rules keyed to active site config
+- [x] Create `src/executor/page-fetch-proxy.ts` — injected into page context via `scripting.executeScript`, intercepts `window.fetch` and `XMLHttpRequest` before network
+- [x] Implement read-only capture — intercept response, capture body/status/headers, save to run variable or global store
+- [x] Implement full response override — return replacement body + headers, never send original request
+- [x] Implement header-only override — pass original body through, modify status + content-type
+- [x] Implement conditional override — evaluate condition before deciding to override
+- [x] Log all intercepted requests to run output: timestamp, URL, method, status, body size
+- [x] Wire intercept rules from site config to runtime on workflow start
+- [x] **Commit and push using the ggg command only with message** — `feat: implement network interception with read capture and full response override`
 
 ---
 

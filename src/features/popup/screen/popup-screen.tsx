@@ -6,12 +6,14 @@ import { ActiveRunsPanel } from '../parts/active-runs-panel'
 import { QuickOverride } from '../parts/quick-override'
 import { PromptArea } from '../parts/prompt-area'
 import { RecentRuns } from '../parts/recent-runs'
+import { StepByStepControls } from '../parts/step-by-step-controls'
 
 export function PopupScreen() {
   const activeRuns = useActiveRuns()
   const promptRun = activeRuns.find(r => r.promptPending) ?? null
   const { prompt, respond } = useRuntimePrompts(promptRun?.runId ?? null)
   const firstActive = activeRuns[0] as ActiveRunState | undefined
+  const pausedRun = activeRuns.find(r => r.status === 'paused') as ActiveRunState | undefined
 
   const openOptions = () => chrome.runtime.openOptionsPage()
   const openSidePanel = () => chrome.runtime.sendMessage({ type: 'OPEN_SIDE_PANEL' })
@@ -36,6 +38,9 @@ export function PopupScreen() {
       <div className="flex flex-col gap-3 p-3">
         {/* Active Runs */}
         <ActiveRunsPanel runs={activeRuns} />
+
+        {/* Step-by-step controls for paused run */}
+        {pausedRun && <StepByStepControls run={pausedRun} />}
 
         {/* Quick override for first active running run */}
         {firstActive && firstActive.status === 'running' && (
