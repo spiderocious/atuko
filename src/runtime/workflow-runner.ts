@@ -83,17 +83,17 @@ export async function startWorkflow(opts: RunOptions): Promise<void> {
     stepMap.set(step.id, step)
   }
 
+  const ctx = { runId, tabId, store, record, runState, settings, mode, workflow }
+
   try {
-    await executeSteps(
-      workflow.steps.map((s) => s.id),
-      stepMap,
-      { runId, tabId, store, record, runState, settings, mode, workflow }
-    )
+    await executeSteps(workflow.steps.map((s) => s.id), stepMap, ctx)
     await finaliseRun(record, 'success')
+    broadcastTerminalStatus(ctx, 'success')
   } catch (err) {
     const message = err instanceof Error ? err.message : String(err)
     record.failedStep = record.failedStep ?? { id: '', label: '', error: message }
     await finaliseRun(record, 'failed')
+    broadcastTerminalStatus(ctx, 'failed')
   } finally {
     activeRuns.delete(runId)
   }
@@ -228,7 +228,10 @@ async function executeWithRetry(
 ): Promise<{ success: boolean; output?: Record<string, string>; error?: string }> {
   const retries = step.retries ?? ctx.settings.defaultRetries
   const retryDelay = step.retryDelay ?? 1000
-  const timeoutMs = ctx.settings.defaultTimeoutMs
+  // For wait/navigate steps that carry their own timeout, use that instead of the global default
+  // so a wait step with duration: 12000 isn't killed at the 10000ms global limit.
+  const stepOwnTimeout = 'timeout' in step ? (step as { timeout: number }).timeout : undefined
+  const timeoutMs = stepOwnTimeout ?? ctx.settings.defaultTimeoutMs
 
   for (let attempt = 0; attempt <= retries; attempt++) {
     const result = await executeStep({
@@ -327,7 +330,27 @@ function broadcastRunStatus(ctx: ExecContext, currentStep: StepObject): void {
     stepTotal: ctx.workflow.steps.length,
     isDryRun: ctx.mode === 'dry-run',
   }
-  chrome.runtime.sendMessage({ type: MSG.RUN_STATUS_UPDATE, state }).catch(() => {})
+  const statusMsg = { type: MSG.RUN_STATUS_UPDATE, payload: state }
+  // Send to extension surfaces (side panel, popup)
+  chrome.runtime.sendMessage(statusMsg).catch(() => {})
+  // Forward to the content script on the workflow's tab so the toast updates
+  chrome.tabs.sendMessage(ctx.tabId, statusMsg).catch(() => {})
+}
+
+function broadcastTerminalStatus(ctx: ExecContext, status: 'success' | 'failed'): void {
+  const state: ActiveRunState = {
+    runId: ctx.runId,
+    workflowId: ctx.workflow.id,
+    workflowName: ctx.workflow.name,
+    status,
+    currentStepIndex: ctx.record.stepsCompleted,
+    currentStepLabel: status === 'success' ? 'Done' : (ctx.record.failedStep?.label ?? 'Failed'),
+    stepTotal: ctx.workflow.steps.length,
+    isDryRun: ctx.mode === 'dry-run',
+  }
+  const statusMsg = { type: MSG.RUN_STATUS_UPDATE, payload: state }
+  chrome.runtime.sendMessage(statusMsg).catch(() => {})
+  chrome.tabs.sendMessage(ctx.tabId, statusMsg).catch(() => {})
 }
 
 export function pauseRun(runId: string): void {

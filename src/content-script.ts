@@ -149,7 +149,15 @@ function _onPickClick(e: Event): void {
   if (!el || el === _pickerOverlay) return
   const selectorObj = generateSelector(el)
   stopElementPicker()
-  chrome.runtime.sendMessage({ type: MSG.PICK_RESULT, selector: selectorObj.primary })
+  chrome.runtime.sendMessage({
+    type: MSG.PICK_RESULT,
+    selector: selectorObj.primary,
+    selectorObj: {
+      ...selectorObj,
+      tagName: el.tagName,
+      text: el.textContent?.trim().slice(0, 80) ?? '',
+    },
+  })
 }
 
 function _onPickKeydown(e: KeyboardEvent): void {

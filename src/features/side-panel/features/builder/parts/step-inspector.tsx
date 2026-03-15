@@ -61,6 +61,9 @@ export function StepInspector({ step, onChange }: Props) {
         <Field label="Retries">
           <input className={INPUT_CLS} type="number" min={0} max={5} value={step.retries} onChange={e => set('retries', Number(e.target.value))} />
         </Field>
+        <Field label="Retry delay (ms)">
+          <input className={INPUT_CLS} type="number" min={0} value={step.retryDelay} onChange={e => set('retryDelay', Number(e.target.value))} />
+        </Field>
       </div>
 
       <hr className="border-[var(--color-border)]" />

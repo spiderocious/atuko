@@ -18,6 +18,9 @@ export function scoreSelector(selector: string): number {
   // name attribute on inputs
   if (/\[name=/.test(selector)) return 0.75
 
+  // xpath= text selectors (normalize-space exact match)
+  if (/^xpath=/.test(selector) && /normalize-space\(\)/.test(selector)) return 0.72
+
   // text content selectors (XPath :contains type)
   if (/text\(\)|contains\(/.test(selector)) return 0.70
 

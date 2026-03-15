@@ -155,6 +155,24 @@ export async function getRunRecord(
   return history.find((r) => r.id === runId)
 }
 
+/** Returns a map of workflowId → last RunRecord (most recent run) for each given ID. */
+export async function getLastRunsForWorkflows(
+  workflowIds: string[]
+): Promise<Record<string, RunRecord | undefined>> {
+  if (workflowIds.length === 0) return {}
+  const keys = workflowIds.map(id => `${STORAGE_KEYS.RUN_HISTORY_PREFIX}${id}`)
+  return new Promise((resolve) => {
+    chrome.storage.local.get(keys, (result) => {
+      const out: Record<string, RunRecord | undefined> = {}
+      workflowIds.forEach((id, i) => {
+        const history = result[keys[i]] as RunRecord[] | undefined
+        out[id] = history?.[0]
+      })
+      resolve(out)
+    })
+  })
+}
+
 // ─── Screenshots ──────────────────────────────────────────────────────────────
 
 interface ScreenshotEntry {

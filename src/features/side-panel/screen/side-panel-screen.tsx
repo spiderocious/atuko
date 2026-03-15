@@ -50,22 +50,6 @@ export function SidePanelScreen() {
 
   return (
     <div className="flex flex-col h-screen bg-[var(--color-surface)] text-[var(--color-text-primary)]">
-      {/* Brand header */}
-      <div className="flex items-center gap-2.5 px-3 py-2.5 border-b border-[var(--color-border)] flex-shrink-0">
-        <div
-          className="w-6 h-6 rounded-md flex items-center justify-center flex-shrink-0"
-          style={{ background: 'var(--color-brand)' }}
-        >
-          <svg width="12" height="12" viewBox="0 0 14 14" fill="none">
-            <path d="M7 1L12 4V10L7 13L2 10V4L7 1Z" fill="white" fillOpacity="0.9" />
-            <circle cx="7" cy="7" r="2" fill="white" />
-          </svg>
-        </div>
-        <span className="text-sm font-semibold" style={{ color: 'var(--color-text-primary)' }}>
-          Atuko
-        </span>
-      </div>
-
       {/* Tab bar */}
       <nav className="flex border-b border-[var(--color-border)] bg-[var(--color-surface)] overflow-x-auto flex-shrink-0">
         {TABS.map(tab => (

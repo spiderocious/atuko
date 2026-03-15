@@ -1,8 +1,10 @@
 import { useState, useRef } from 'react'
+import { useQuery } from '@tanstack/react-query'
 import { ClipboardList, SearchX } from '@shared/ui/icons'
 import { Workflow } from '@shared/types'
 import { Button, EmptyState } from '@ui'
 import { MSG } from '@shared/constants/messages'
+import { getLastRunsForWorkflows } from '@shared/services/storage.service'
 import { useWorkflows, useSaveWorkflow, useDeleteWorkflow, useDuplicateWorkflow } from '../hooks/use-workflows'
 import { WorkflowSearch } from '../parts/workflow-search'
 import { WorkflowFilters, StatusFilter } from '../parts/workflow-filters'
@@ -23,6 +25,13 @@ export function WorkflowsListScreen({ onEdit }: Props) {
   const [activeTag, setActiveTag] = useState<string | null>(null)
   const fileInputRef = useRef<HTMLInputElement>(null)
 
+  const workflowIds = workflows.map(w => w.id)
+  const { data: lastRuns = {} } = useQuery({
+    queryKey: ['last-runs', workflowIds],
+    queryFn: () => getLastRunsForWorkflows(workflowIds),
+    enabled: workflowIds.length > 0 && statusFilter === 'failed',
+  })
+
   // Collect all unique tags
   const allTags = Array.from(new Set(workflows.flatMap(w => w.tags)))
 
@@ -31,6 +40,7 @@ export function WorkflowsListScreen({ onEdit }: Props) {
     if (search && !w.name.toLowerCase().includes(search.toLowerCase()) && !w.site.toLowerCase().includes(search.toLowerCase())) return false
     if (statusFilter === 'enabled' && !w.enabled) return false
     if (statusFilter === 'disabled' && w.enabled) return false
+    if (statusFilter === 'failed' && lastRuns[w.id]?.status !== 'failed') return false
     if (activeTag && !w.tags.includes(activeTag)) return false
     return true
   })

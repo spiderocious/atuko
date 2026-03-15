@@ -41,9 +41,11 @@ function resolveAlias(selector: string, siteConfig: SiteConfig | undefined): str
 
 function queryElement(selector: string): Element | null {
   try {
-    if (selector.startsWith('//') || selector.startsWith('(//')) {
+    // Support explicit xpath= prefix as well as bare XPath expressions
+    const xpath = selector.startsWith('xpath=') ? selector.slice(6) : selector
+    if (xpath.startsWith('//') || xpath.startsWith('(//')) {
       const result = document.evaluate(
-        selector,
+        xpath,
         document,
         null,
         XPathResult.FIRST_ORDERED_NODE_TYPE,
