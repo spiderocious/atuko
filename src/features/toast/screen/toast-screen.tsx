@@ -54,7 +54,7 @@ export function ToastScreen({ runId, initialState }: Props) {
     <div style={{
       fontFamily: 'Inter, system-ui, sans-serif',
       width: 300,
-      background: '#ffffff',
+      background: 'var(--color-surface)',
       borderRadius: 16,
       boxShadow: '0 10px 40px rgba(0,0,0,0.18), 0 2px 8px rgba(0,0,0,0.08)',
       padding: '10px 14px',
@@ -72,7 +72,7 @@ export function ToastScreen({ runId, initialState }: Props) {
         {isDone ? (
           <button
             onClick={() => setVisible(false)}
-            style={{ background: 'none', border: 'none', cursor: 'pointer', fontSize: 14, color: '#9ca3af', pointerEvents: 'auto', lineHeight: 1 }}
+            style={{ background: 'none', border: 'none', cursor: 'pointer', fontSize: 14, color: 'var(--color-text-tertiary)', pointerEvents: 'auto', lineHeight: 1 }}
           >×</button>
         ) : (
           <ControlButtons

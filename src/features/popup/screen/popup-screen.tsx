@@ -50,6 +50,7 @@ export function PopupScreen() {
           onMouseEnter={e => (e.currentTarget.style.background = 'var(--color-surface-raised)')}
           onMouseLeave={e => (e.currentTarget.style.background = 'transparent')}
           title="Settings"
+          aria-label="Settings"
         >
           <svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor">
             <path fillRule="evenodd" clipRule="evenodd" d="M8 5.5a2.5 2.5 0 100 5 2.5 2.5 0 000-5zM4.5 8a3.5 3.5 0 117 0 3.5 3.5 0 01-7 0z"/>
@@ -59,7 +60,7 @@ export function PopupScreen() {
       </div>
 
       {/* Divider */}
-      <div style={{ height: 1, background: 'var(--color-border)', margin: '0 16px' }} />
+      <div style={{ height: 1, background: 'var(--color-border)' }} />
 
       {/* Body */}
       <div className="flex flex-col gap-2 p-4">
@@ -92,7 +93,7 @@ export function PopupScreen() {
           className="w-full h-9 rounded-lg text-[13px] font-medium transition-colors flex items-center justify-center gap-2"
           style={{
             background: 'var(--color-brand)',
-            color: '#fff',
+            color: 'var(--color-text-inverse)',
           }}
           onMouseEnter={e => (e.currentTarget.style.background = 'var(--color-brand-dark)')}
           onMouseLeave={e => (e.currentTarget.style.background = 'var(--color-brand)')}

@@ -19,22 +19,21 @@ interface Props { runs: ActiveRunState[] }
 export function ActiveRunsPanel({ runs }: Props) {
   if (runs.length === 0) {
     return (
-      <div className="flex flex-col items-center justify-center py-10 gap-3">
+      <div className="flex flex-col items-center justify-center py-8 gap-3">
         <div
           className="w-10 h-10 rounded-xl flex items-center justify-center"
-          style={{ background: 'var(--color-surface-raised)' }}
+          style={{ background: 'var(--color-brand-dim)' }}
         >
-          <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
-            <circle cx="9" cy="9" r="7" stroke="var(--color-text-tertiary)" strokeWidth="1.5"/>
-            <path d="M9 5.5V9L11 11" stroke="var(--color-text-tertiary)" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--color-brand)" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+            <polygon points="5 3 19 12 5 21 5 3"/>
           </svg>
         </div>
         <div className="text-center">
-          <p className="text-[13px] font-medium" style={{ color: 'var(--color-text-primary)' }}>
+          <p className="text-[13px] font-semibold" style={{ color: 'var(--color-text-primary)' }}>
             No active runs
           </p>
-          <p className="text-[12px] mt-0.5" style={{ color: 'var(--color-text-tertiary)' }}>
-            Start a workflow from the side panel
+          <p className="text-[12px] mt-0.5" style={{ color: 'var(--color-text-secondary)' }}>
+            Open the panel to start a workflow
           </p>
         </div>
       </div>

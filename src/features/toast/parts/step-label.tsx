@@ -5,7 +5,7 @@ export function StepLabel({ label }: Props) {
     <span style={{
       fontSize: 13,
       fontWeight: 500,
-      color: '#1a1a2e',
+      color: 'var(--color-text-primary)',
       overflow: 'hidden',
       textOverflow: 'ellipsis',
       whiteSpace: 'nowrap',

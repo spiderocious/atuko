@@ -1,5 +1,6 @@
 import { Workflow } from '@shared/types'
 import { Badge, Dropdown } from '@ui'
+import { MoreVertical } from '@shared/ui/icons'
 
 interface Props {
   workflow: Workflow
@@ -25,7 +26,7 @@ export function WorkflowItem({ workflow, onEdit, onDuplicate, onDelete, onRun, o
           className="sr-only peer"
         />
         <div className="w-8 h-4 bg-[var(--color-border)] rounded-full peer peer-checked:bg-[var(--color-brand)] transition-colors" />
-        <div className="absolute left-0.5 top-0.5 w-3 h-3 bg-white rounded-full transition-transform peer-checked:translate-x-4" />
+        <div className="absolute left-0.5 top-0.5 w-3 h-3 bg-white rounded-full transition-transform peer-checked:translate-x-[17px]" />
       </label>
 
       {/* Info */}
@@ -54,8 +55,8 @@ export function WorkflowItem({ workflow, onEdit, onDuplicate, onDelete, onRun, o
       <Dropdown
         align="right"
         trigger={
-          <button className="p-1 rounded text-[var(--color-text-secondary)] hover:text-[var(--color-text-primary)] hover:bg-[var(--color-surface-raised)] opacity-0 group-hover:opacity-100 transition-opacity">
-            ⋮
+          <button aria-label="Workflow actions" className="p-1 rounded text-[var(--color-text-secondary)] hover:text-[var(--color-text-primary)] hover:bg-[var(--color-surface-raised)] opacity-0 group-hover:opacity-100 transition-opacity">
+            <MoreVertical size={14} />
           </button>
         }
         items={[

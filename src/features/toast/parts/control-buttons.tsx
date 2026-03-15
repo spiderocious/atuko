@@ -17,7 +17,7 @@ export function ControlButtons({ status, expanded, onPause, onStop, onToggleExpa
     padding: '2px 6px',
     borderRadius: 4,
     fontSize: 12,
-    color: '#6b7280',
+    color: 'var(--color-text-secondary)',
     lineHeight: 1,
     pointerEvents: 'auto',
   }
@@ -29,7 +29,7 @@ export function ControlButtons({ status, expanded, onPause, onStop, onToggleExpa
       <button style={btnStyle} onClick={onPause} title={isPaused ? 'Resume' : 'Pause'}>
         {isPaused ? '▶' : '⏸'}
       </button>
-      <button style={{ ...btnStyle, color: '#ef4444' }} onClick={onStop} title="Stop">
+      <button style={{ ...btnStyle, color: 'var(--color-error)' }} onClick={onStop} title="Stop">
         ■
       </button>
       <button style={btnStyle} onClick={onToggleExpand} title={expanded ? 'Collapse' : 'Expand'}>

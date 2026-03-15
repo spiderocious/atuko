@@ -1,28 +1,52 @@
+import {
+  MousePointerClick,
+  PenLine,
+  Clock,
+  ArrowDownUp,
+  Globe,
+  Send,
+  ListFilter,
+  HandMetal,
+  Keyboard,
+  Braces,
+  Camera,
+  LayoutDashboard,
+  Clipboard,
+  Database,
+  FileText,
+  MessageSquare,
+  Variable,
+  GitBranch,
+  Repeat2,
+  OctagonX,
+  CornerDownRight,
+  type LucideIcon,
+} from '@shared/ui/icons'
 import { Badge } from '@ui'
 import { StepObject } from '@shared/types'
 
-const STEP_ICONS: Record<string, string> = {
-  click: '🖱',
-  fill: '✏️',
-  wait: '⏳',
-  scroll: '↕',
-  navigate: '🔗',
-  submit: '📤',
-  select: '📋',
-  hover: '👆',
-  keypress: '⌨',
-  extract: '📤',
-  screenshot: '📸',
-  tab: '🗂',
-  clipboard: '📋',
-  storage: '💾',
-  log: '📝',
-  prompt: '💬',
-  setVariable: '📦',
-  branch: '⑂',
-  loop: '↺',
-  stop: '⏹',
-  jump: '↷',
+const STEP_ICONS: Record<string, LucideIcon> = {
+  click: MousePointerClick,
+  fill: PenLine,
+  wait: Clock,
+  scroll: ArrowDownUp,
+  navigate: Globe,
+  submit: Send,
+  select: ListFilter,
+  hover: HandMetal,
+  keypress: Keyboard,
+  extract: Braces,
+  screenshot: Camera,
+  tab: LayoutDashboard,
+  clipboard: Clipboard,
+  storage: Database,
+  log: FileText,
+  prompt: MessageSquare,
+  setVariable: Variable,
+  branch: GitBranch,
+  loop: Repeat2,
+  stop: OctagonX,
+  jump: CornerDownRight,
 }
 
 interface Props {
@@ -34,7 +58,7 @@ interface Props {
 }
 
 export function StepNode({ step, index, isSelected, onClick, onDelete }: Props) {
-  const icon = STEP_ICONS[step.type] ?? '•'
+  const Icon = STEP_ICONS[step.type] ?? FileText
   const label = step.label || step.type
 
   return (
@@ -48,10 +72,15 @@ export function StepNode({ step, index, isSelected, onClick, onDelete }: Props) 
         !(step as unknown as { enabled?: boolean }).enabled ? 'opacity-50' : '',
       ].join(' ')}
     >
-      <span className="text-sm flex-shrink-0 w-5 text-center">{icon}</span>
+      <Icon
+        size={14}
+        strokeWidth={1.5}
+        className={isSelected ? 'text-[var(--color-brand)]' : 'text-[var(--color-text-secondary)]'}
+        style={{ flexShrink: 0 }}
+      />
       <div className="flex-1 min-w-0">
         <div className="flex items-center gap-2">
-          <span className="text-xs font-mono text-[var(--color-text-secondary)] w-4 flex-shrink-0">{index + 1}</span>
+          <span className="text-xs font-mono text-[var(--color-text-tertiary)] w-4 flex-shrink-0">{index + 1}</span>
           <span className="text-sm text-[var(--color-text-primary)] truncate">{label}</span>
         </div>
         <span className="text-xs text-[var(--color-text-secondary)] ml-5">{step.type}</span>
@@ -60,6 +89,7 @@ export function StepNode({ step, index, isSelected, onClick, onDelete }: Props) 
       <button
         onClick={e => { e.stopPropagation(); onDelete() }}
         className="opacity-0 group-hover:opacity-100 text-[var(--color-text-secondary)] hover:text-[var(--color-error)] transition-all p-0.5 rounded text-sm"
+        aria-label="Delete step"
       >
         ×
       </button>

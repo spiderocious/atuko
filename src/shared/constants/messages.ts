@@ -41,6 +41,11 @@ export const MSG = {
 
   // Side panel
   OPEN_SIDE_PANEL: 'OPEN_SIDE_PANEL',
+
+  // Element picker (side panel → SW → CS → SW → side panel)
+  START_PICK: 'START_PICK',
+  STOP_PICK: 'STOP_PICK',
+  PICK_RESULT: 'PICK_RESULT',
 } as const
 
 export type MessageType = typeof MSG[keyof typeof MSG]

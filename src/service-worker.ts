@@ -193,6 +193,25 @@ function handleMessage(
       break
     }
 
+    case MSG.PICK_RESULT:
+      // CS sends this; just acknowledge — side panel receives it via its own onMessage listener
+      sendResponse({ ok: true })
+      break
+
+    case MSG.START_RECORD:
+    case MSG.STOP_RECORD:
+    case MSG.START_PICK:
+    case MSG.STOP_PICK:
+      // Forward these to the active tab's content script
+      chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
+        const tabId = tabs[0]?.id
+        if (!tabId) { sendResponse({ ok: false, error: 'No active tab' }); return }
+        chrome.tabs.sendMessage(tabId, message, (res) => {
+          sendResponse(res ?? { ok: true })
+        })
+      })
+      break
+
     case MSG.OPEN_SIDE_PANEL:
       chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
         const windowId = tabs[0]?.windowId

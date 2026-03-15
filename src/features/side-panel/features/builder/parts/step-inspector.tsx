@@ -1,5 +1,6 @@
 import type { ReactNode } from 'react'
 import { StepObject } from '@shared/types'
+import { SelectorPicker } from './selector-picker'
 
 interface FieldProps {
   label: string
@@ -9,7 +10,7 @@ interface FieldProps {
 function Field({ label, children }: FieldProps) {
   return (
     <div className="flex flex-col gap-1">
-      <label className="text-xs font-medium text-[var(--color-text-secondary)] uppercase tracking-wide">
+      <label className="text-xs font-medium text-[var(--color-text-secondary)]">
         {label}
       </label>
       {children}
@@ -81,19 +82,17 @@ interface TypeFieldsProps {
 function StepTypeFields({ step, s, set, cls, checkCls }: TypeFieldsProps) {
   const Field2 = ({ label, children }: { label: string; children: ReactNode }) => (
     <div className="flex flex-col gap-1">
-      <label className="text-xs font-medium text-[var(--color-text-secondary)] uppercase tracking-wide">{label}</label>
+      <label className="text-xs font-medium text-[var(--color-text-secondary)]">{label}</label>
       {children}
     </div>
   )
 
-  // Selector helper
+  // Selector helper — includes a crosshair element picker button
   const selectorInput = (
     <Field2 label="Selector">
-      <input
-        className={cls}
+      <SelectorPicker
         value={(s['selector'] as { primary: string })?.primary ?? ''}
-        onChange={e => set('selector', { ...(s['selector'] as object ?? {}), primary: e.target.value })}
-        placeholder="CSS or XPath selector"
+        onChange={v => set('selector', { ...(s['selector'] as object ?? {}), primary: v })}
       />
     </Field2>
   )

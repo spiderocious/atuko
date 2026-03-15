@@ -7,7 +7,7 @@ export function StepLogExpander({ logs }: Props) {
 
   return (
     <div style={{
-      borderTop: '1px solid #e5e7eb',
+      borderTop: '1px solid var(--color-border)',
       marginTop: 8,
       paddingTop: 8,
       display: 'flex',
@@ -22,10 +22,10 @@ export function StepLogExpander({ logs }: Props) {
             width: 6,
             height: 6,
             borderRadius: '50%',
-            backgroundColor: log.status === 'success' ? '#22c55e' : '#ef4444',
+            backgroundColor: log.status === 'success' ? 'var(--color-success)' : 'var(--color-error)',
             flexShrink: 0,
           }} />
-          <span style={{ fontSize: 11, color: '#374151', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
+          <span style={{ fontSize: 11, color: 'var(--color-text-secondary)', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
             {log.label ?? `Step ${log.stepIndex + 1}`}
           </span>
         </div>
