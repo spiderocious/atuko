@@ -1,4 +1,5 @@
 import { isEnabled } from '@shared/constants/feature-flags'
+import { OptionsScreen } from '@features/options/screen/options-screen'
 
 export function OptionsApp() {
   if (!isEnabled('OPTIONS')) {
@@ -7,9 +8,7 @@ export function OptionsApp() {
 
   return (
     <div className="min-h-screen bg-[var(--color-bg)] text-[var(--color-text-primary)]">
-      <p className="p-6 text-sm text-[var(--color-text-secondary)]">
-        Atuko — Settings placeholder
-      </p>
+      <OptionsScreen />
     </div>
   )
 }

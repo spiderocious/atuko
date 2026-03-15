@@ -219,13 +219,13 @@ After commit, always ensure you come back to this file to check off completed ta
 
 ## Phase 13 — Debug Tools
 
-- [ ] Create `src/runtime/dry-run-mode.ts` — run workflow without real actions; each step highlights target element and logs "Would [action] [selector]"
-- [ ] Create `src/executor/element-highlighter.ts` — injects blue 2px outline over resolved element, removes after step advances
-- [ ] Implement step-by-step mode — workflow pauses after each step and waits for "Next" from popup before continuing
-- [ ] Create `src/features/popup/parts/step-by-step-controls.tsx` — "Next step" button shown in popup when step-by-step mode active; shows full step config + resolved selector
-- [ ] Create `src/features/side-panel/features/builder/parts/selector-inspector.tsx` — hover overlay on any page element showing generated selector, stability score, all fallback selectors
-- [ ] Implement console log capture — optionally capture `console.log/warn/error` during run and append timestamped to run output
-- [ ] **Commit and push using the ggg command only with message** — `feat: implement debug tools (dry run, step-by-step mode, selector inspector, console capture)`
+- [x] Create `src/runtime/dry-run-mode.ts` — run workflow without real actions; each step highlights target element and logs "Would [action] [selector]"
+- [x] Create `src/executor/element-highlighter.ts` — injects blue 2px outline over resolved element, removes after step advances
+- [x] Implement step-by-step mode — workflow pauses after each step and waits for "Next" from popup before continuing
+- [x] Create `src/features/popup/parts/step-by-step-controls.tsx` — "Next step" button shown in popup when step-by-step mode active; shows full step config + resolved selector
+- [x] Create `src/features/side-panel/features/builder/parts/selector-inspector.tsx` — hover overlay on any page element showing generated selector, stability score, all fallback selectors
+- [x] Implement console log capture — optionally capture `console.log/warn/error` during run and append timestamped to run output
+- [x] **Commit and push using the ggg command only with message** — `feat: implement debug tools (dry run, step-by-step mode, selector inspector, console capture)`
 
 ---
 
