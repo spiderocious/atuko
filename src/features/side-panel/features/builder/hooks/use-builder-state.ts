@@ -212,6 +212,7 @@ interface BuilderState {
   selectStep: (id: string | null) => void
   updateWorkflow: (w: Workflow) => void
   addStep: (type: string) => void
+  appendStep: (step: StepObject) => void
   removeStep: (id: string) => void
   reorderSteps: (from: number, to: number) => void
   updateStep: (stepId: string, patch: Partial<StepObject>) => void
@@ -231,6 +232,16 @@ export function useBuilderState(initial: Workflow): BuilderState {
 
   const addStep = useCallback((type: string) => {
     const step = createDefaultStep(type)
+    setWorkflow(prev => ({
+      ...prev,
+      steps: [...prev.steps, step],
+      updatedAt: new Date().toISOString(),
+    }))
+    setIsDirty(true)
+    setSelectedStepId(step.id)
+  }, [])
+
+  const appendStep = useCallback((step: StepObject) => {
     setWorkflow(prev => ({
       ...prev,
       steps: [...prev.steps, step],
@@ -269,5 +280,5 @@ export function useBuilderState(initial: Workflow): BuilderState {
     setIsDirty(true)
   }, [])
 
-  return { workflow, selectedStepId, isDirty, selectStep, updateWorkflow, addStep, removeStep, reorderSteps, updateStep }
+  return { workflow, selectedStepId, isDirty, selectStep, updateWorkflow, addStep, appendStep, removeStep, reorderSteps, updateStep }
 }

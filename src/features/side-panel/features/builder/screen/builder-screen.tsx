@@ -20,6 +20,7 @@ export function BuilderScreen({ workflow, onSave, onBack }: Props) {
     isDirty,
     selectStep,
     addStep,
+    appendStep,
     removeStep,
     reorderSteps,
     updateStep,
@@ -65,7 +66,7 @@ export function BuilderScreen({ workflow, onSave, onBack }: Props) {
       <div className="flex flex-1 overflow-hidden">
         {/* Left: canvas */}
         <div className="flex flex-col w-1/2 border-r border-[var(--color-border)] overflow-hidden">
-          <RecordToolbar workflowId={wf.id} />
+          <RecordToolbar workflowId={wf.id} onStepRecorded={appendStep} />
           <FlowCanvas
             steps={wf.steps}
             selectedStepId={selectedStepId}

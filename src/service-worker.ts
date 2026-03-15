@@ -180,18 +180,10 @@ function handleMessage(
         .catch((e) => sendResponse({ config: null, error: String(e) }))
       break
 
-    case MSG.RECORDED_ACTION: {
-      const wfId = message['workflowId'] as string
-      const step = message['step'] as import('@shared/types').StepObject
-      getWorkflow(wfId)
-        .then(wf => {
-          if (!wf) { sendResponse({ ok: false, error: 'Workflow not found' }); return }
-          return saveWorkflow({ ...wf, steps: [...wf.steps, step], updatedAt: new Date().toISOString() })
-        })
-        .then(() => sendResponse({ ok: true }))
-        .catch((e) => sendResponse({ ok: false, error: String(e) }))
+    case MSG.RECORDED_ACTION:
+      // Side panel's RecordToolbar listens directly — just ack
+      sendResponse({ ok: true })
       break
-    }
 
     case MSG.PICK_RESULT:
       // CS sends this; just acknowledge — side panel receives it via its own onMessage listener
