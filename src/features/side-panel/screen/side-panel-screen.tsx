@@ -2,6 +2,10 @@ import { useState } from 'react'
 import { Workflow } from '@shared/types'
 import { WorkflowsListScreen } from '../features/workflows-list/screen/workflows-list-screen'
 import { BuilderScreen } from '../features/builder/screen/builder-screen'
+import { JsonConfigScreen } from '../features/json-config/screen/json-config-screen'
+import { RunHistoryScreen } from '../features/run-history/screen/run-history-screen'
+import { SiteConfigScreen } from '../features/site-config/screen/site-config-screen'
+import { SettingsScreen } from '../features/settings/screen/settings-screen'
 import { useSaveWorkflow } from '../features/workflows-list/hooks/use-workflows'
 
 type Tab = 'workflows' | 'builder' | 'config' | 'history' | 'site-config' | 'settings'
@@ -36,6 +40,11 @@ export function SidePanelScreen() {
   const handleBack = () => {
     setActiveTab('workflows')
     setEditingWorkflow(null)
+  }
+
+  const handleJsonApply = (w: Workflow) => {
+    setEditingWorkflow(w)
+    saveWorkflow.mutate(w)
   }
 
   return (
@@ -75,11 +84,19 @@ export function SidePanelScreen() {
             Select a workflow to edit, or create a new one.
           </div>
         )}
-        {activeTab !== 'workflows' && activeTab !== 'builder' && (
+        {activeTab === 'config' && editingWorkflow && (
+          <JsonConfigScreen workflow={editingWorkflow} onApply={handleJsonApply} />
+        )}
+        {activeTab === 'config' && !editingWorkflow && (
           <div className="flex items-center justify-center h-full text-sm text-[var(--color-text-secondary)]">
-            {TABS.find(t => t.id === activeTab)?.label} — coming in next phase
+            Open a workflow in the Builder tab first.
           </div>
         )}
+        {activeTab === 'history' && (
+          <RunHistoryScreen workflowId={editingWorkflow?.id ?? null} />
+        )}
+        {activeTab === 'site-config' && <SiteConfigScreen />}
+        {activeTab === 'settings' && <SettingsScreen />}
       </div>
     </div>
   )

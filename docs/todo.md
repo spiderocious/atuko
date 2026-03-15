@@ -154,21 +154,21 @@ After commit, always ensure you come back to this file to check off completed ta
 
 ## Phase 9 — Side Panel: Visual Builder Tab
 
-- [ ] Create `src/features/side-panel/features/builder/screen/builder-screen.tsx` — canvas + inspector layout
-- [ ] Create `src/features/side-panel/features/builder/parts/flow-canvas.tsx` — node-based visual flow, drag-to-reorder steps
-- [ ] Create `src/features/side-panel/features/builder/parts/step-node.tsx` — node card showing step type, label, status badge
-- [ ] Create `src/features/side-panel/features/builder/parts/step-connector.tsx` — visual line connector between nodes with branch forks
-- [ ] Create `src/features/side-panel/features/builder/parts/step-inspector.tsx` — right panel showing selected step full config with all options per step type
-- [ ] Create `src/features/side-panel/features/builder/parts/record-toolbar.tsx` — record/stop record controls
-- [ ] Create `src/features/side-panel/features/builder/hooks/use-builder-state.ts` — manages selected step, dirty state, add/remove/reorder steps
-- [ ] Implement step add panel — browse and add any of the 18 step types + control flow nodes
-- [ ] Implement per-step config forms in inspector for all 18 step types
-- [ ] Implement branch node — shows then/else paths and mergeAt connector
-- [ ] Implement loop node — shows count/while/for-each config and loop body steps
-- [ ] Implement stop and jump nodes
-- [ ] Implement trigger config panel — manual, url-match trigger options
-- [ ] Live sync builder state → JSON editor (both directions)
-- [ ] **Commit and push using the ggg command only with message** — `feat: implement visual builder tab with node canvas, step inspector, and all step type forms`
+- [x] Create `src/features/side-panel/features/builder/screen/builder-screen.tsx` — canvas + inspector layout
+- [x] Create `src/features/side-panel/features/builder/parts/flow-canvas.tsx` — node-based visual flow, drag-to-reorder steps
+- [x] Create `src/features/side-panel/features/builder/parts/step-node.tsx` — node card showing step type, label, status badge
+- [x] Create `src/features/side-panel/features/builder/parts/step-connector.tsx` — visual line connector between nodes with branch forks
+- [x] Create `src/features/side-panel/features/builder/parts/step-inspector.tsx` — right panel showing selected step full config with all options per step type
+- [x] Create `src/features/side-panel/features/builder/parts/record-toolbar.tsx` — record/stop record controls
+- [x] Create `src/features/side-panel/features/builder/hooks/use-builder-state.ts` — manages selected step, dirty state, add/remove/reorder steps
+- [x] Implement step add panel — browse and add any of the 18 step types + control flow nodes
+- [x] Implement per-step config forms in inspector for all 18 step types
+- [x] Implement branch node — shows then/else paths and mergeAt connector
+- [x] Implement loop node — shows count/while/for-each config and loop body steps
+- [x] Implement stop and jump nodes
+- [x] Implement trigger config panel — manual, url-match trigger options
+- [x] Live sync builder state → JSON editor (both directions)
+- [x] **Commit and push using the ggg command only with message** — `feat: implement visual builder tab with node canvas, step inspector, and all step type forms`
 
 ---
 
