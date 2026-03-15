@@ -1,0 +1,487 @@
+WHAT IS ATUKO
+
+Atuko (Yoruba: "driver", also called "Flow" internally) is a Chrome MV3 browser automation extension for engineers. It lets you record, build, and run multi-step workflows directly in Chrome with no external tools or cloud dependency. Every workflow is a single JSON document that you can version-control, share, or generate programmatically. Workflows can be imported into the extension via the builder's Import button.
+
+
+WORKFLOW JSON — TOP-LEVEL FIELDS
+
+A workflow is a JSON object with the following fields:
+
+  id           string   UUID v4 uniquely identifying this workflow
+  name         string   Human-readable display name
+  description  string   Optional description
+  site         string   Hostname only, e.g. "example.com" — no protocol, no path
+  version      number   Always 1
+  enabled      boolean  Whether the workflow can be triggered automatically
+  triggers     array    One or more TriggerObject items (see TRIGGERS)
+  steps        array    Ordered array of StepObject items (see STEP TYPES)
+  variables    object   Key-value pairs of default workflow-scope variable values (strings)
+  tags         array    String tags for organization
+  createdAt    string   ISO 8601 datetime
+  updatedAt    string   ISO 8601 datetime
+
+
+TRIGGERS
+
+Every workflow has a triggers array with one or more trigger objects.
+
+ManualTrigger — fired explicitly by the user
+  { "type": "manual" }
+
+UrlMatchTrigger — fired when the user navigates to a matching URL
+  type       "url-match"
+  pattern    string    URL pattern to match
+  matchType  string    "glob" | "exact" | "prefix" | "regex"
+  matchOn    string    "load" | "domcontentloaded" | "urlchange"
+  once       boolean   Fire only once per page visit if true
+  delay      number    Milliseconds to wait after match before starting the workflow
+
+ChainTrigger — fired when another workflow completes
+  type           "chain"
+  workflowId     string    UUID of the parent workflow
+  onStatus       string    "success" | "any"
+  passVariables  array     String array of variable names to inherit from the parent run
+
+
+STEP BASE FIELDS
+
+Every step object includes these fields regardless of type:
+
+  id          string   UUID v4 — must be unique within the workflow
+  type        string   Step type identifier (see STEP TYPES)
+  label       string   Human-readable step name shown in the UI and run log
+  note        string   Optional comment; not used at runtime
+  enabled     boolean  Set to false to skip this step without removing it
+  onError     string   "stop" | "skip" | "retry" | "branch"
+  retries     number   Number of retry attempts on error, 0–5
+  retryDelay  number   Milliseconds to wait between retries
+
+
+SELECTOROBJECT
+
+SelectorObject is used in any step that targets a DOM element.
+
+  primary         string   The main selector to try first
+  fallbacks       array    Ordered string array of fallback selectors to try if primary fails
+  stabilityScore  number   0.0 to 1.0 — higher means more stable across code changes
+
+Supported selector formats:
+
+  CSS id                #submit-btn
+  CSS data-testid       [data-testid="login-btn"]
+  CSS attribute         [aria-label="Close dialog"]
+  CSS class             .btn-primary
+  CSS compound          form.login-form input[type="email"]
+  XPath bare            //button[@id='x']   (starts with //)
+  XPath prefixed        xpath=//button[normalize-space()='Log in']
+  Site alias            @alias-name   (resolved from site config)
+
+Stability score guidance:
+  0.95  [data-testid], #id
+  0.85  [aria-label], [name], [placeholder]
+  0.75  xpath text match via normalize-space()
+  0.60  CSS class
+  0.40  positional XPath such as //div[3]/button[1]
+
+Always include at least two fallbacks. For buttons and links, xpath=//button[normalize-space()='Label'] is the most resilient selector across code refactors.
+
+
+STEP TYPES
+
+There are 18 step types. Each section lists the type name, its purpose, and all type-specific fields in addition to the base fields.
+
+
+TYPE: click
+Purpose: Click a DOM element.
+
+  selector       SelectorObject  Target element
+  button         string          "left" | "right" | "middle"
+  doubleClick    boolean         Double-click instead of single click
+  waitBefore     number          Milliseconds to wait before clicking
+  scrollIntoView boolean         Scroll element into viewport first
+  force          boolean         Click even if element is not visible
+
+
+TYPE: fill
+Purpose: Type text into an input, textarea, or contenteditable element.
+
+  selector       SelectorObject  Target element
+  value          string          Text to type; supports {{var}} interpolation
+  clearMethod    string          "select-all" | "triple-click" | "ctrl-a"
+  append         boolean         Append to existing value instead of replacing
+  simulateTyping boolean         Fire key events per character (for sites that listen to keydown/keyup)
+  typingDelay    number          Milliseconds between simulated keystrokes
+  pressEnter     boolean         Press Enter after filling
+
+
+TYPE: wait
+Purpose: Pause execution until a condition is met or a timeout occurs.
+
+  waitType   string          "duration" | "element" | "element-gone" | "text" | "network"
+  duration   number          Milliseconds to wait (for waitType "duration")
+  selector   SelectorObject  Element to wait for (for waitType "element" or "element-gone")
+  text       string          Page text to wait for (for waitType "text")
+  timeout    number          Maximum milliseconds before onTimeout fires
+  onTimeout  string          "stop" | "skip" | "branch"
+
+
+TYPE: navigate
+Purpose: Navigate the current tab to a URL.
+
+  url       string  Destination URL; supports {{var}} interpolation
+  waitUntil string  "load" | "domcontentloaded" | "networkidle"
+  timeout   number  Maximum milliseconds to wait for navigation to complete
+
+
+TYPE: scroll
+Purpose: Scroll the page or a scrollable container.
+
+  scrollType  string               "to" | "by" | "top" | "bottom" | "element"
+  target      "page" or SelectorObject  What to scroll
+  x           number               Horizontal amount in pixels
+  y           number               Vertical amount in pixels
+  behavior    string               "smooth" | "instant"
+
+
+TYPE: submit
+Purpose: Submit a form element programmatically.
+
+  selector          SelectorObject  The form element to submit
+  waitForNavigation boolean         Wait for page navigation after submit
+  navigationTimeout number          Maximum milliseconds to wait for navigation
+
+
+TYPE: select
+Purpose: Choose an option in a <select> element.
+
+  selector  SelectorObject  The <select> element
+  by        string          "value" | "label" | "index"
+  value     string|number   The option value, label text, or 0-based index to select
+
+
+TYPE: hover
+Purpose: Move the mouse over an element to trigger hover states.
+
+  selector  SelectorObject  Target element
+  duration  number          Milliseconds to hold the hover before moving on
+
+
+TYPE: keypress
+Purpose: Send keyboard events to the page or a focused element.
+
+  key     string  Key identifier e.g. "Enter", "Escape", "Tab", "Ctrl+A", "ArrowDown", "F5"
+  target  string  "page" — events are dispatched on the document
+  repeat  number  Number of times to press the key
+  delay   number  Milliseconds between repeated key presses
+
+
+TYPE: extract
+Purpose: Read a value from the DOM and store it in a variable.
+
+  selector       SelectorObject  Target element
+  property       string          "text" | "html" | "value" | "attribute" | "style"
+  attribute      string          HTML attribute name (when property is "attribute")
+  styleProperty  string          CSS property name (when property is "style")
+  saveAs         string          Variable name to store the result
+  transform      string          "none" | "trim" | "lowercase" | "uppercase" | "number"
+
+
+TYPE: screenshot
+Purpose: Capture an image of the viewport, full page, or a specific element.
+
+  target    "viewport" | "page" | SelectorObject  What to capture
+  filename  string   Filename for the saved image
+  saveAs    string   Optional variable name to store the resulting data URI
+
+
+TYPE: tab
+Purpose: Open, close, or switch between browser tabs.
+
+  action     string  "open" | "close" | "switch" | "close-others"
+  url        string  URL to open (for action "open"); supports {{var}} interpolation
+  waitUntil  string  "load" | "domcontentloaded"
+  saveTabId  string  Optional variable name to store the new tab ID
+
+
+TYPE: clipboard
+Purpose: Read from or write to the system clipboard.
+
+  action  string  "read" | "write"
+  value   string  Text to write (for action "write"); supports {{var}} interpolation
+  saveAs  string  Variable name to store clipboard contents (for action "read")
+
+
+TYPE: storage
+Purpose: Read or write browser localStorage or sessionStorage.
+
+  action  string  "get" | "set" | "remove" | "clear"
+  store   string  "local" | "session"
+  key     string  Storage key name
+  value   string  Value to write (for action "set")
+  saveAs  string  Variable name to store the retrieved value (for action "get")
+
+
+TYPE: log
+Purpose: Write a message to the run log.
+
+  message  string  Log message; supports {{var}} interpolation
+  level    string  "info" | "warn" | "error"
+
+
+TYPE: prompt
+Purpose: Ask the user for input during a run, displayed in the toast overlay.
+
+  promptType  string  "text" | "password" | "select"
+  message     string  Prompt message shown to the user
+  saveAs      string  Variable name to store the user's response
+  countdown   number  Seconds before the prompt auto-dismisses
+
+
+TYPE: setVariable
+Purpose: Set or compute a variable value at runtime.
+
+  name       string  Variable name
+  value      string  Value to assign; supports {{var}} interpolation
+  scope      string  "run" | "workflow" | "site" | "global"
+  transform  string  "none" | "trim" | "lowercase" | "uppercase" | "number" | "json-parse"
+
+
+TYPE: branch
+Purpose: Conditionally execute different sets of steps based on a runtime condition.
+
+  condition  ConditionObject  The condition to evaluate
+  then       array            Ordered string array of step IDs to execute if condition is true
+  else       array            Ordered string array of step IDs to execute if condition is false
+  mergeAt    string           Step ID to resume execution at after the branch finishes
+
+
+TYPE: loop
+Purpose: Repeat a set of steps a fixed number of times, while a condition holds, or over an array.
+
+  loopType       string           "count" | "while" | "for-each"
+  count          number           Number of iterations (for loopType "count")
+  condition      ConditionObject  Loop condition (for loopType "while")
+  items          string           Variable name holding a JSON array (for loopType "for-each")
+  itemAs         string           Variable name for the current item in each iteration
+  steps          array            Ordered string array of step IDs forming the loop body
+  maxIterations  number           Safety cap — loop stops after this many iterations regardless
+
+
+TYPE: stop
+Purpose: Immediately halt the workflow run with an explicit status.
+
+  reason  string  Human-readable reason for stopping
+  status  string  "success" | "failure" | "cancelled"
+
+
+TYPE: jump
+Purpose: Unconditionally transfer execution to a specific step.
+
+  stepId  string  UUID of the step to jump to
+
+
+CONDITIONOBJECT
+
+Used in branch and loop steps to evaluate a runtime condition.
+
+  type         string          Condition type:
+                               "variable" — evaluate a variable value
+                               "element-exists" — check if an element is in the DOM
+                               "element-missing" — check if an element is absent from the DOM
+                               "element-text" — check the text content of an element
+                               "element-value" — check the value property of an input element
+                               "url-matches" — check the current tab URL against a pattern
+                               "response-contains" — check the body of an intercepted network response
+
+  selector     SelectorObject  Target element (required for element-* types)
+  variable     string          Variable name to evaluate (required for type "variable")
+  operator     string          "equals" | "not-equals" | "contains" | "not-contains" |
+                               "starts-with" | "ends-with" | "greater-than" | "less-than" |
+                               "is-empty" | "is-not-empty"
+  value        string          The comparison value
+  pattern      string          URL pattern string (for type "url-matches")
+  responseVar  string          Variable name holding the response body (for type "response-contains")
+
+
+VARIABLE SCOPES
+
+Variables are stored in one of four scopes. The scope determines lifetime and sharing.
+
+  run       Lives only for the current run. Cleared automatically when the run ends.
+  workflow  Persists across runs, but only for this specific workflow.
+  site      Persists across runs and is shared by all workflows on the same hostname.
+  global    Persists across runs and is shared by all workflows on all sites.
+
+Variable interpolation syntax: {{variableName}}
+
+Use {{variableName}} in any string field. For built-in variables, use a $ prefix: {{$url}}, {{$runId}}, etc.
+
+Default values for workflow-scope variables can be set in the top-level "variables" object of the workflow JSON.
+
+
+BUILT-IN VARIABLES (READ-ONLY)
+
+These are always available in any workflow. Reference them as {{$name}}.
+
+  $url        Current tab full URL
+  $title      Current page document title
+  $timestamp  Unix timestamp in milliseconds (integer string)
+  $date       Current date as YYYY-MM-DD
+  $time       Current time as HH:MM:SS
+  $runId      UUID of the current run
+  $stepIndex  0-based index of the step currently executing
+  $iteration  Current iteration count inside a loop (1-based)
+  $item       Current item value in a for-each loop
+
+
+COMPLETE MINIMAL EXAMPLE WORKFLOW
+
+The following workflow navigates to a login page, fills email and password, clicks the submit button, waits for the dashboard, and extracts a value.
+
+{
+  "id": "aaaaaaaa-0000-0000-0000-000000000001",
+  "name": "Minimal Login Example",
+  "description": "Navigate, fill, click, wait, extract",
+  "site": "example.com",
+  "version": 1,
+  "enabled": true,
+  "triggers": [{ "type": "manual" }],
+  "variables": { "email": "user@example.com", "password": "secret" },
+  "tags": [],
+  "createdAt": "2026-01-01T00:00:00.000Z",
+  "updatedAt": "2026-01-01T00:00:00.000Z",
+  "steps": [
+    {
+      "id": "s1",
+      "type": "navigate",
+      "label": "Go to login page",
+      "enabled": true,
+      "onError": "stop",
+      "retries": 0,
+      "retryDelay": 0,
+      "url": "https://example.com/login",
+      "waitUntil": "domcontentloaded",
+      "timeout": 10000
+    },
+    {
+      "id": "s2",
+      "type": "fill",
+      "label": "Fill email",
+      "enabled": true,
+      "onError": "stop",
+      "retries": 1,
+      "retryDelay": 500,
+      "selector": {
+        "primary": "[data-testid='email-input']",
+        "fallbacks": ["input[type='email']", "input[name='email']"],
+        "stabilityScore": 0.95
+      },
+      "value": "{{email}}",
+      "clearMethod": "select-all",
+      "append": false,
+      "simulateTyping": false,
+      "typingDelay": 0,
+      "pressEnter": false
+    },
+    {
+      "id": "s3",
+      "type": "fill",
+      "label": "Fill password",
+      "enabled": true,
+      "onError": "stop",
+      "retries": 1,
+      "retryDelay": 500,
+      "selector": {
+        "primary": "[data-testid='password-input']",
+        "fallbacks": ["input[type='password']", "input[name='password']"],
+        "stabilityScore": 0.95
+      },
+      "value": "{{password}}",
+      "clearMethod": "select-all",
+      "append": false,
+      "simulateTyping": false,
+      "typingDelay": 0,
+      "pressEnter": false
+    },
+    {
+      "id": "s4",
+      "type": "click",
+      "label": "Click submit",
+      "enabled": true,
+      "onError": "stop",
+      "retries": 1,
+      "retryDelay": 500,
+      "selector": {
+        "primary": "xpath=//button[normalize-space()='Log in']",
+        "fallbacks": ["button[type='submit']", "[data-testid='login-btn']"],
+        "stabilityScore": 0.75
+      },
+      "button": "left",
+      "doubleClick": false,
+      "waitBefore": 0,
+      "scrollIntoView": true,
+      "force": false
+    },
+    {
+      "id": "s5",
+      "type": "wait",
+      "label": "Wait for dashboard",
+      "enabled": true,
+      "onError": "stop",
+      "retries": 0,
+      "retryDelay": 0,
+      "waitType": "element",
+      "selector": {
+        "primary": "[data-testid='dashboard']",
+        "fallbacks": ["#dashboard", "main.dashboard"],
+        "stabilityScore": 0.9
+      },
+      "timeout": 15000,
+      "onTimeout": "stop"
+    },
+    {
+      "id": "s6",
+      "type": "extract",
+      "label": "Extract username",
+      "enabled": true,
+      "onError": "skip",
+      "retries": 0,
+      "retryDelay": 0,
+      "selector": {
+        "primary": "[data-testid='user-name']",
+        "fallbacks": [".user-greeting", "#username"],
+        "stabilityScore": 0.9
+      },
+      "property": "text",
+      "saveAs": "userName",
+      "transform": "trim"
+    }
+  ]
+}
+
+
+TIPS FOR AI AGENTS GENERATING SELECTORS
+
+Use this priority order when choosing selectors:
+
+1. [data-testid="x"]          Stability 0.95 — most reliable, use whenever available
+2. #semantic-id               Stability 0.95 — use only for stable, semantic IDs (not auto-generated)
+3. [aria-label="x"]           Stability 0.85 — reliable for buttons and interactive elements
+4. [name="x"], [placeholder]  Stability 0.85 — reliable for form inputs
+5. xpath=//button[normalize-space()='Label']   Stability 0.75 — best for buttons and links by text content
+6. .semantic-class-name       Stability 0.60 — only use if class names are stable and semantic
+7. Positional XPath           Stability 0.40 — last resort only, brittle across DOM changes
+
+Always populate the fallbacks array with at least two alternatives in priority order.
+
+For buttons and links, always include the xpath text variant as a fallback even if a higher-priority selector is used as primary.
+
+Use waitType "element" rather than "duration" wherever possible. Element waits are faster and more resilient to variable network and render times.
+
+Set a timeout on every wait step. Decide explicitly whether onTimeout should be "stop", "skip", or "branch" — never leave it undefined.
+
+Always include retries: 1 and retryDelay: 500 on click and fill steps interacting with dynamically rendered content.
+
+Variable interpolation {{variableName}} works in any string field: url, value, message, key, filename, and others. Reference built-in read-only variables with a $ prefix: {{$url}}, {{$date}}, {{$runId}}.
+
+Every step ID must be a unique string within the workflow. UUIDs are preferred but any unique string is valid.
