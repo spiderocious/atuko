@@ -174,18 +174,18 @@ After commit, always ensure you come back to this file to check off completed ta
 
 ## Phase 10 — Side Panel: JSON Config, Run History, Site Config, Settings Tabs
 
-- [ ] Create `src/features/side-panel/features/json-config/screen/json-config-screen.tsx` — raw JSON textarea with syntax highlighting (monospace), live sync with builder
-- [ ] Create `src/features/side-panel/features/json-config/hooks/use-json-sync.ts` — bidirectional sync, parse error display
-- [ ] Create `src/features/side-panel/features/run-history/screen/run-history-screen.tsx` — list of runs for selected workflow
-- [ ] Create `src/features/side-panel/features/run-history/parts/run-item.tsx` — run row: ID, trigger type, timestamps, status badge, step count
-- [ ] Create `src/features/side-panel/features/run-history/parts/run-detail.tsx` — full run output: steps, variable outputs, screenshots, error details, console logs
-- [ ] Create `src/features/side-panel/features/run-history/hooks/use-run-history.ts`
-- [ ] Implement replay run — re-runs with same variable inputs as that run
-- [ ] Create `src/features/side-panel/features/site-config/screen/site-config-screen.tsx`
-- [ ] Create `src/features/side-panel/features/site-config/parts/alias-editor.tsx` — add/edit/delete `@alias → selector` pairs
-- [ ] Create `src/features/side-panel/features/site-config/parts/intercept-rules.tsx` — add/edit/delete intercept rules with read/modify action config
-- [ ] Create `src/features/side-panel/features/settings/screen/settings-screen.tsx` — selector strategy preference, default timeouts, default retries, notification preferences
-- [ ] **Commit and push using the ggg command only with message** — `feat: implement JSON config, run history, site config, and settings tabs`
+- [x] Create `src/features/side-panel/features/json-config/screen/json-config-screen.tsx` — raw JSON textarea with syntax highlighting (monospace), live sync with builder
+- [x] Create `src/features/side-panel/features/json-config/hooks/use-json-sync.ts` — bidirectional sync, parse error display
+- [x] Create `src/features/side-panel/features/run-history/screen/run-history-screen.tsx` — list of runs for selected workflow
+- [x] Create `src/features/side-panel/features/run-history/parts/run-item.tsx` — run row: ID, trigger type, timestamps, status badge, step count
+- [x] Create `src/features/side-panel/features/run-history/parts/run-detail.tsx` — full run output: steps, variable outputs, screenshots, error details, console logs
+- [x] Create `src/features/side-panel/features/run-history/hooks/use-run-history.ts`
+- [x] Implement replay run — re-runs with same variable inputs as that run
+- [x] Create `src/features/side-panel/features/site-config/screen/site-config-screen.tsx`
+- [x] Create `src/features/side-panel/features/site-config/parts/alias-editor.tsx` — add/edit/delete `@alias → selector` pairs
+- [x] Create `src/features/side-panel/features/site-config/parts/intercept-rules.tsx` — add/edit/delete intercept rules with read/modify action config
+- [x] Create `src/features/side-panel/features/settings/screen/settings-screen.tsx` — selector strategy preference, default timeouts, default retries, notification preferences
+- [x] **Commit and push using the ggg command only with message** — `feat: implement JSON config, run history, site config, and settings tabs`
 
 ---
 

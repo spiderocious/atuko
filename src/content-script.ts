@@ -25,6 +25,7 @@ import { executeStorageStep } from './executor/steps/storage-step'
 import { executeLog } from './executor/steps/log'
 import { executePrompt } from './executor/steps/prompt'
 import { executeSetVariable } from './executor/steps/set-variable'
+import { startRecording, stopRecording } from './recorder/recorder'
 
 let currentSiteConfig: SiteConfig | undefined
 
@@ -37,7 +38,7 @@ chrome.runtime.sendMessage(
 )
 
 chrome.runtime.onMessage.addListener((message, _sender, sendResponse) => {
-  const msg = message as { type: string; step?: StepObject; isDryRun?: boolean; runId?: string; payload?: ActiveRunState }
+  const msg = message as { type: string; step?: StepObject; isDryRun?: boolean; runId?: string; payload?: ActiveRunState; workflowId?: string }
 
   if (msg.type === MSG.EXECUTE_STEP && msg.step) {
     handleExecuteStep(msg.step, msg.isDryRun ?? false, msg.runId ?? '')
@@ -53,6 +54,18 @@ chrome.runtime.onMessage.addListener((message, _sender, sendResponse) => {
     } else if (payload.status === 'success' || payload.status === 'failed') {
       setTimeout(() => removeToast(), 2000)
     }
+    sendResponse({ ok: true })
+    return
+  }
+
+  if (msg.type === MSG.START_RECORD && msg.workflowId) {
+    startRecording(msg.workflowId)
+    sendResponse({ ok: true })
+    return
+  }
+
+  if (msg.type === MSG.STOP_RECORD) {
+    stopRecording()
     sendResponse({ ok: true })
     return
   }

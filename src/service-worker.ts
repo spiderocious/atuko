@@ -180,6 +180,19 @@ function handleMessage(
         .catch((e) => sendResponse({ config: null, error: String(e) }))
       break
 
+    case MSG.RECORDED_ACTION: {
+      const wfId = message['workflowId'] as string
+      const step = message['step'] as import('@shared/types').StepObject
+      getWorkflow(wfId)
+        .then(wf => {
+          if (!wf) { sendResponse({ ok: false, error: 'Workflow not found' }); return }
+          return saveWorkflow({ ...wf, steps: [...wf.steps, step], updatedAt: new Date().toISOString() })
+        })
+        .then(() => sendResponse({ ok: true }))
+        .catch((e) => sendResponse({ ok: false, error: String(e) }))
+      break
+    }
+
     default:
       sendResponse({ ok: false, error: `Unknown message type: ${type}` })
   }
