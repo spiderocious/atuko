@@ -21,10 +21,11 @@ export function Card({
   return (
     <div
       className={[
-        'bg-surface border border-border rounded-lg shadow-sm',
+        'bg-[var(--color-surface)] border border-[var(--color-border)] rounded-lg',
         paddingClasses[padding],
         className,
       ].join(' ')}
+      style={{ boxShadow: 'var(--shadow-sm)' }}
       {...props}
     >
       {children}

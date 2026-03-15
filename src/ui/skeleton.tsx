@@ -16,7 +16,7 @@ export function Skeleton({
     <div
       aria-hidden="true"
       className={[
-        'animate-pulse rounded-md bg-surface-raised',
+        'animate-pulse rounded-md bg-[var(--color-surface-raised)]',
         className,
       ].join(' ')}
       style={{ width, height, ...style }}

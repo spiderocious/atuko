@@ -16,7 +16,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
         {label ? (
           <label
             htmlFor={id}
-            className="text-sm font-medium text-text-secondary"
+            className="text-[13px] font-medium text-[var(--color-text-secondary)]"
           >
             {label}
           </label>
@@ -25,15 +25,15 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
           ref={ref}
           id={id}
           className={[
-            'h-8 px-3 rounded-md text-base text-text-primary',
-            'bg-surface border',
-            'placeholder:text-text-tertiary',
-            'transition-colors duration-fast ease-out',
-            'focus:outline-none focus:ring-2 focus:ring-brand focus:ring-offset-0 focus:border-border-strong',
+            'h-8 px-3 rounded-md text-[14px] text-[var(--color-text-primary)]',
+            'bg-[var(--color-surface)] border',
+            'placeholder:text-[var(--color-text-tertiary)]',
+            'transition-colors duration-[100ms]',
+            'focus:outline-none focus:ring-2 focus:ring-[var(--color-brand)] focus:ring-offset-0',
             'disabled:opacity-50 disabled:cursor-not-allowed',
             error
-              ? 'border-error focus:ring-error'
-              : 'border-border focus:border-border-strong',
+              ? 'border-[var(--color-error)] focus:ring-[var(--color-error)]'
+              : 'border-[var(--color-border)] focus:border-[var(--color-border-strong)]',
             className,
           ].join(' ')}
           aria-invalid={error ? 'true' : undefined}
@@ -43,11 +43,11 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
           {...props}
         />
         {error ? (
-          <p id={`${id}-error`} className="text-sm text-error">
+          <p id={`${id}-error`} className="text-[13px] text-[var(--color-error)]">
             {error}
           </p>
         ) : hint ? (
-          <p id={`${id}-hint`} className="text-sm text-text-tertiary">
+          <p id={`${id}-hint`} className="text-[13px] text-[var(--color-text-tertiary)]">
             {hint}
           </p>
         ) : null}

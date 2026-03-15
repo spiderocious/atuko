@@ -1,6 +1,6 @@
 import { ButtonHTMLAttributes, forwardRef } from 'react'
 
-type ButtonVariant = 'primary' | 'secondary' | 'ghost'
+type ButtonVariant = 'primary' | 'secondary' | 'ghost' | 'danger'
 type ButtonSize = 'sm' | 'md' | 'lg'
 
 interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
@@ -11,17 +11,19 @@ interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
 
 const variantClasses: Record<ButtonVariant, string> = {
   primary:
-    'bg-brand text-text-inverse hover:bg-brand-dark active:bg-brand-dark border border-transparent',
+    'bg-[var(--color-brand)] text-[var(--color-text-inverse)] hover:bg-[var(--color-brand-dark)] active:bg-[var(--color-brand-dark)] border border-transparent',
   secondary:
-    'bg-transparent text-text-primary border border-border-strong hover:bg-surface-raised active:bg-surface-overlay',
+    'bg-transparent text-[var(--color-text-primary)] border border-[var(--color-border-strong)] hover:bg-[var(--color-surface-raised)] active:bg-[var(--color-surface-overlay)]',
   ghost:
-    'bg-transparent text-text-secondary border border-transparent hover:bg-surface-raised active:bg-surface-overlay',
+    'bg-transparent text-[var(--color-text-secondary)] border border-transparent hover:bg-[var(--color-surface-raised)] active:bg-[var(--color-surface-overlay)]',
+  danger:
+    'bg-[var(--color-error-bg)] text-[var(--color-error)] border border-transparent hover:opacity-80 active:opacity-70',
 }
 
 const sizeClasses: Record<ButtonSize, string> = {
-  sm: 'h-7 px-[10px] text-sm',
-  md: 'h-8 px-3 text-base',
-  lg: 'h-9 px-4 text-md',
+  sm: 'h-7 px-[10px] text-[13px]',
+  md: 'h-8 px-3 text-[14px]',
+  lg: 'h-9 px-4 text-[15px]',
 }
 
 export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
@@ -45,8 +47,8 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
         disabled={isDisabled}
         className={[
           'inline-flex items-center justify-center gap-1.5 rounded-md font-medium',
-          'transition-colors duration-base ease-out',
-          'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand focus-visible:ring-offset-1',
+          'transition-colors duration-[150ms]',
+          'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-brand)] focus-visible:ring-offset-1',
           'disabled:opacity-50 disabled:cursor-not-allowed',
           'select-none cursor-pointer',
           variantClasses[variant],

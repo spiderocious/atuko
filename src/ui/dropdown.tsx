@@ -67,10 +67,11 @@ export function Dropdown({ trigger, items, align = 'left' }: DropdownProps) {
           id={menuId}
           role="menu"
           className={[
-            'absolute z-50 mt-1 min-w-[160px] rounded-lg border border-border bg-surface shadow-md',
+            'absolute z-50 mt-1 min-w-[160px] rounded-lg border border-[var(--color-border)] bg-[var(--color-surface)]',
             'py-1 flex flex-col',
             align === 'right' ? 'right-0' : 'left-0',
           ].join(' ')}
+          style={{ boxShadow: 'var(--shadow-md)' }}
         >
           {items.map((item, i) => (
             <button
@@ -82,16 +83,16 @@ export function Dropdown({ trigger, items, align = 'left' }: DropdownProps) {
                 setOpen(false)
               }}
               className={[
-                'flex items-center gap-2 px-3 py-2 text-sm text-left w-full',
-                'transition-colors duration-fast ease-out',
+                'flex items-center gap-2 px-3 py-2 text-[13px] text-left w-full',
+                'transition-colors duration-[100ms]',
                 'disabled:opacity-50 disabled:cursor-not-allowed',
                 item.destructive
-                  ? 'text-error hover:bg-error-bg'
-                  : 'text-text-primary hover:bg-surface-raised',
+                  ? 'text-[var(--color-error)] hover:bg-[var(--color-error-bg)]'
+                  : 'text-[var(--color-text-primary)] hover:bg-[var(--color-surface-raised)]',
               ].join(' ')}
             >
               {item.icon ? (
-                <span className="text-text-tertiary">{item.icon}</span>
+                <span className="text-[var(--color-text-tertiary)]">{item.icon}</span>
               ) : null}
               {item.label}
             </button>

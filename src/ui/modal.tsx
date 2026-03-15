@@ -48,19 +48,19 @@ export function Modal({
     <dialog
       ref={dialogRef}
       className={[
-        'p-0 rounded-xl shadow-lg border border-border bg-surface',
+        'p-0 rounded-xl border border-[var(--color-border)] bg-[var(--color-surface)]',
         'backdrop:bg-black/40 backdrop:backdrop-blur-sm',
         'open:flex open:flex-col',
         'max-h-[90vh] overflow-hidden',
       ].join(' ')}
-      style={{ width }}
+      style={{ width, boxShadow: 'var(--shadow-lg)' }}
       onClick={(e) => {
         if (e.target === dialogRef.current) onClose()
       }}
     >
       {title ? (
-        <div className="flex items-center justify-between px-5 py-4 border-b border-border">
-          <h2 className="text-lg font-semibold text-text-primary">{title}</h2>
+        <div className="flex items-center justify-between px-5 py-4 border-b border-[var(--color-border)]">
+          <h2 className="text-[17px] font-semibold text-[var(--color-text-primary)]">{title}</h2>
           <Button variant="ghost" size="sm" onClick={onClose} aria-label="Close">
             <X size={16} strokeWidth={1.5} />
           </Button>
@@ -70,7 +70,7 @@ export function Modal({
       <div className="flex-1 overflow-y-auto px-5 py-4">{children}</div>
 
       {footer ? (
-        <div className="px-5 py-4 border-t border-border flex justify-end gap-2">
+        <div className="px-5 py-4 border-t border-[var(--color-border)] flex justify-end gap-2">
           {footer}
         </div>
       ) : null}

@@ -5,13 +5,13 @@ interface StatusDotProps {
   className?: string
 }
 
-const statusClasses: Record<RunStatus, string> = {
-  idle:      'bg-status-idle',
-  running:   'bg-status-running animate-pulse',
-  waiting:   'bg-status-waiting animate-pulse',
-  success:   'bg-status-success',
-  failed:    'bg-status-failed',
-  'dry-run': 'bg-status-dry-run',
+const statusStyles: Record<RunStatus, string> = {
+  idle:      'bg-[var(--color-status-idle)]',
+  running:   'bg-[var(--color-status-running)] animate-pulse',
+  waiting:   'bg-[var(--color-status-waiting)] animate-pulse',
+  success:   'bg-[var(--color-status-success)]',
+  failed:    'bg-[var(--color-status-failed)]',
+  'dry-run': 'bg-[var(--color-status-dry-run)]',
 }
 
 const statusLabels: Record<RunStatus, string> = {
@@ -29,8 +29,8 @@ export function StatusDot({ status, className = '' }: StatusDotProps) {
       role="status"
       aria-label={statusLabels[status]}
       className={[
-        'inline-block w-2 h-2 rounded-full transition-colors duration-base',
-        statusClasses[status],
+        'inline-block w-2 h-2 rounded-full flex-shrink-0',
+        statusStyles[status],
         className,
       ].join(' ')}
     />

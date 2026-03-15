@@ -17,12 +17,12 @@ export function EmptyState({ icon: Icon, headline, body, action }: EmptyStatePro
       <Icon
         size={36}
         strokeWidth={1.5}
-        className="text-text-tertiary"
+        className="text-[var(--color-text-tertiary)]"
       />
       <div className="flex flex-col gap-1 max-w-[240px]">
-        <p className="text-lg font-semibold text-text-primary">{headline}</p>
+        <p className="text-[17px] font-semibold text-[var(--color-text-primary)]">{headline}</p>
         {body ? (
-          <p className="text-base text-text-secondary">{body}</p>
+          <p className="text-[14px] text-[var(--color-text-secondary)]">{body}</p>
         ) : null}
       </div>
       {action ? (

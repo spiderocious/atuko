@@ -7,12 +7,12 @@ interface BadgeProps extends HTMLAttributes<HTMLSpanElement> {
 }
 
 const variantClasses: Record<BadgeVariant, string> = {
-  success: 'bg-success-bg text-success',
-  warning: 'bg-warning-bg text-warning',
-  error:   'bg-error-bg text-error',
-  info:    'bg-info-bg text-info',
-  neutral: 'bg-surface-raised text-text-secondary',
-  brand:   'bg-brand-dim text-brand',
+  success: 'bg-[var(--color-success-bg)] text-[var(--color-success)]',
+  warning: 'bg-[var(--color-warning-bg)] text-[var(--color-warning)]',
+  error:   'bg-[var(--color-error-bg)] text-[var(--color-error)]',
+  info:    'bg-[var(--color-info-bg)] text-[var(--color-info)]',
+  neutral: 'bg-[var(--color-surface-raised)] text-[var(--color-text-secondary)]',
+  brand:   'bg-[var(--color-brand-dim)] text-[var(--color-brand)]',
 }
 
 export function Badge({
@@ -24,7 +24,7 @@ export function Badge({
   return (
     <span
       className={[
-        'inline-flex items-center h-5 px-2 rounded-full text-xs font-medium',
+        'inline-flex items-center h-5 px-2 rounded-full text-[11px] font-medium',
         variantClasses[variant],
         className,
       ].join(' ')}
