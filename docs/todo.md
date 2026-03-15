@@ -231,54 +231,54 @@ After commit, always ensure you come back to this file to check off completed ta
 
 ## Phase 14 — Variables & State System
 
-- [ ] Ensure variable resolver handles all 4 scopes: run (per-run), workflow (persists between runs of same workflow), global (all workflows), site (all workflows on same domain)
-- [ ] Implement `setVariable` step with scope and transform options
-- [ ] Implement all built-in variables: `$url`, `$title`, `$timestamp`, `$date`, `$time`, `$runId`, `$stepIndex`, `$iteration`, `$item`
-- [ ] Ensure `{{variable}}` interpolation works in all step option fields that accept strings
-- [ ] Implement multi-value fill config — prompt user to select from saved options list with countdown
-- [ ] Implement ask-at-runtime fill config — pause workflow, prompt in popup, store to optional variable, never persist
-- [ ] Wire workflow-scope and site-scope variable persistence to storage service
-- [ ] **Commit and push using the ggg command only with message** — `feat: implement full variable system with all scopes, interpolation, and multi-value inputs`
+- [x] Ensure variable resolver handles all 4 scopes: run (per-run), workflow (persists between runs of same workflow), global (all workflows), site (all workflows on same domain)
+- [x] Implement `setVariable` step with scope and transform options
+- [x] Implement all built-in variables: `$url`, `$title`, `$timestamp`, `$date`, `$time`, `$runId`, `$stepIndex`, `$iteration`, `$item`
+- [x] Ensure `{{variable}}` interpolation works in all step option fields that accept strings
+- [x] Implement multi-value fill config — prompt user to select from saved options list with countdown
+- [x] Implement ask-at-runtime fill config — pause workflow, prompt in popup, store to optional variable, never persist
+- [x] Wire workflow-scope and site-scope variable persistence to storage service
+- [x] **Commit and push using the ggg command only with message** — `feat: implement full variable system with all scopes, interpolation, and multi-value inputs`
 
 ---
 
 ## Phase 15 — URL-Match Trigger & Manual Trigger
 
-- [ ] Implement URL-match trigger in service worker — listen to `chrome.tabs.onUpdated` for navigation events
-- [ ] Match tab URLs against all enabled workflows' url-match trigger patterns (exact/prefix/glob/regex)
-- [ ] Respect `matchOn` setting: load / domcontentloaded / urlchange
-- [ ] Respect `once` setting: fire only once per tab session
-- [ ] Respect `delay` setting: wait N ms after match before starting
-- [ ] Implement manual trigger — side panel run button and popup run button both send TRIGGER_WORKFLOW
-- [ ] **Commit and push using the ggg command only with message** — `feat: implement URL-match trigger with pattern matching and manual trigger`
+- [x] Implement URL-match trigger in service worker — listen to `chrome.tabs.onUpdated` for navigation events
+- [x] Match tab URLs against all enabled workflows' url-match trigger patterns (exact/prefix/glob/regex)
+- [x] Respect `matchOn` setting: load / domcontentloaded / urlchange
+- [x] Respect `once` setting: fire only once per tab session
+- [x] Respect `delay` setting: wait N ms after match before starting
+- [x] Implement manual trigger — side panel run button and popup run button both send TRIGGER_WORKFLOW
+- [x] **Commit and push using the ggg command only with message** — `feat: implement URL-match trigger with pattern matching and manual trigger`
 
 ---
 
 ## Phase 16 — Options Page & Completion Notifications
 
-- [ ] Create `src/options/main.tsx` — options page React root
-- [ ] Create `src/features/options/screen/options-screen.tsx` — extension-wide settings: selector strategy preference, default timeouts, sync config, notification settings
-- [ ] Wire options settings to `chrome.storage.sync`
-- [ ] Implement system notification on workflow completion/failure using `chrome.notifications`
-- [ ] Request notifications permission on first use
-- [ ] **Commit and push using the ggg command only with message** — `feat: implement options page and completion notifications`
+- [x] Create `src/options/main.tsx` — options page React root
+- [x] Create `src/features/options/screen/options-screen.tsx` — extension-wide settings: selector strategy preference, default timeouts, sync config, notification settings
+- [x] Wire options settings to `chrome.storage.sync`
+- [x] Implement system notification on workflow completion/failure using `chrome.notifications`
+- [x] Request notifications permission on first use
+- [x] **Commit and push using the ggg command only with message** — `feat: implement options page and completion notifications`
 
 ---
 
 ## Phase 17 — Polish, QA & Store Readiness
 
-- [ ] Audit all UI surfaces at their hard size constraints: popup 360px, toast 300px, side panel 400px+
-- [ ] Verify dark mode tokens render correctly across all surfaces
-- [ ] Verify all animations respect `prefers-reduced-motion`
-- [ ] Add extension icons: 16px, 32px, 48px, 128px (required for store listing)
-- [ ] Write `src/popup/popup.html`, `src/side-panel/side-panel.html`, `src/options/options.html` with correct meta tags and CSP headers
-- [ ] Set correct Content Security Policy in manifest.json (no `unsafe-eval`, no `unsafe-inline`)
-- [ ] Test full install flow: clone repo → `pnpm build` → Chrome → Load unpacked → `dist/`
-- [ ] Test one full end-to-end workflow: record → build → run → view history → export JSON → import JSON
-- [ ] Verify no console errors in service worker, content script, popup, side panel, toast
-- [ ] Verify extension works across multiple tabs simultaneously
-- [ ] Ensure `dist/` builds cleanly in CI (no local machine dependencies)
-- [ ] **Commit and push using the ggg command only with message** — `feat: MVP complete — polish, icon assets, CSP, and Chrome store readiness`
+- [x] Audit all UI surfaces at their hard size constraints: popup 360px, toast 300px, side panel 400px+
+- [x] Verify dark mode tokens render correctly across all surfaces
+- [x] Verify all animations respect `prefers-reduced-motion`
+- [x] Add extension icons: 16px, 32px, 48px, 128px (required for store listing)
+- [x] Write `src/popup/popup.html`, `src/side-panel/side-panel.html`, `src/options/options.html` with correct meta tags and CSP headers
+- [x] Set correct Content Security Policy in manifest.json (no `unsafe-eval`, no `unsafe-inline`)
+- [x] Test full install flow: clone repo → `pnpm build` → Chrome → Load unpacked → `dist/`
+- [x] Test one full end-to-end workflow: record → build → run → view history → export JSON → import JSON
+- [x] Verify no console errors in service worker, content script, popup, side panel, toast
+- [x] Verify extension works across multiple tabs simultaneously
+- [x] Ensure `dist/` builds cleanly in CI (no local machine dependencies)
+- [x] **Commit and push using the ggg command only with message** — `feat: MVP complete — polish, icon assets, CSP, and Chrome store readiness`
 
 ---
 
