@@ -193,6 +193,16 @@ function handleMessage(
       break
     }
 
+    case MSG.OPEN_SIDE_PANEL:
+      chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
+        const windowId = tabs[0]?.windowId
+        if (!windowId) { sendResponse({ ok: false, error: 'No active window' }); return }
+        chrome.sidePanel.open({ windowId })
+          .then(() => sendResponse({ ok: true }))
+          .catch((e) => sendResponse({ ok: false, error: String(e) }))
+      })
+      break
+
     default:
       sendResponse({ ok: false, error: `Unknown message type: ${type}` })
   }

@@ -38,6 +38,9 @@ export const MSG = {
   // Toast (CS internal)
   TOAST_UPDATE: 'TOAST_UPDATE',
   TOAST_DISMISS: 'TOAST_DISMISS',
+
+  // Side panel
+  OPEN_SIDE_PANEL: 'OPEN_SIDE_PANEL',
 } as const
 
 export type MessageType = typeof MSG[keyof typeof MSG]
